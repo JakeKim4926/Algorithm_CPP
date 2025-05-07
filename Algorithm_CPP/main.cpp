@@ -1,13 +1,31 @@
 #include <iostream>
+#include <string>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
-bool solution(string s)
-{
-	bool answer = true;
+int solution(vector<int> numbers, int target) {
+	int answer = 0;
 
-	cout << "Hello Cpp" << endl;
+	queue<pair<int,int>> bfs;
+	bfs.push({ 0, numbers.at(0) });
+	bfs.push({ 0, numbers.at(0) * -1 });
+
+	while (!bfs.empty()) {
+		pair<int, int> temp = bfs.front();
+		bfs.pop();
+
+		if (temp.second == target)
+			answer++;
+		if (temp.first >= numbers.size())
+			continue;
+
+		bfs.push({ temp.first + 1 , temp.second + numbers.at(temp.first)});
+		bfs.push({ temp.first + 1 , temp.second - numbers.at(temp.first)});
+	}
+
+	cout << answer << endl;
 
 	return answer;
 }
