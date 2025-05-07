@@ -1,32 +1,71 @@
-# Prerequisites
-*.d
+# Visual Studio 2017 C++ project specific
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# 빌드 결과물
+[Bb]in/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+ARM/
+ARM64/
 *.exe
-*.out
-*.app
+*.dll
+*.lib
+*.exp
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.res
+*.pch
+*.iobj
+*.ipdb
+
+# 빌드 중간 파일
+*.aps
+*.log
+*.tlog
+*.lastbuildstate
+*.unsuccessfulbuild
+*.user
+*.VC.db
+*.VC.VC.opendb
+
+# 프로젝트 사용자 설정파일
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.filters
+
+# Visual Studio 캐시 파일
+.vs/
+UpgradeLog*.htm
+UpgradeLog*.xml
+_UpgradeReport_Files/
+
+# C++ Precompiled Headers
+*.gch
+
+# Intellisense 파일
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+ipch/
+
+# 기타 컴파일 관련 파일
+*.i
+*.ii
+*.manifest
+
+# Coverage 파일
+*.coverage
+coverage/
+
+# 분석 파일
+*.psess
+*.vsp
+*.vspx
+*.sap
