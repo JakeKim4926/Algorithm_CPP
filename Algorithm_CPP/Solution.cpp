@@ -48,3 +48,58 @@ int Solution::solution_250507_02(vector<int> numbers, int target)
 
 	return answer;
 }
+
+int Solution::solution_250523_01()
+{
+	// Two Pointer
+
+	IOFaster();
+	long N, temp, goodVal = 0;
+	vector<long> vec;
+
+	cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		cin >> temp;
+		vec.push_back(temp);
+	}
+
+	if (N <= 2) {
+		cout << goodVal << endl;
+		return 0;
+	}
+
+	sort(vec.begin(), vec.end());
+	for (int i = 0; i < N; i++) {
+		long val = vec[i];
+		int left = 0;
+		int right = vec.size() - 1;
+
+		while (left < right) {
+			long result = vec[left] + vec[right];
+			if (left == i) {
+				left++;
+				continue;
+			}
+			if (right == i) {
+				right--;
+				continue;
+			}
+
+			if (result == val) {
+				goodVal++;
+				break;
+			}
+			else if (result < val) {
+				left++;
+			}
+			else {
+				right--;
+			}
+		}
+	}
+
+	cout << goodVal << endl;
+
+	return 0;
+}

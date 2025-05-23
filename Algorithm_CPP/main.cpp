@@ -2,36 +2,21 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-int solution(vector<int> numbers, int target) {
-	int answer = 0;
-
-	queue<pair<int,int>> bfs;
-	bfs.push({ 0, numbers.at(0) });
-	bfs.push({ 0, numbers.at(0) * -1 });
-
-	while (!bfs.empty()) {
-		pair<int, int> temp = bfs.front();
-		bfs.pop();
-
-		if (temp.second == target)
-			answer++;
-		if (temp.first >= numbers.size())
-			continue;
-
-		bfs.push({ temp.first + 1 , temp.second + numbers.at(temp.first)});
-		bfs.push({ temp.first + 1 , temp.second - numbers.at(temp.first)});
-	}
-
-	cout << answer << endl;
-
-	return answer;
+void IOFaster() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
 }
 
 int main() {
 
+	IOFaster();
+	long N, temp, goodVal = 0;
+	vector<long> vec;
 
 	return 0;
 }
