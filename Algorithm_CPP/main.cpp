@@ -15,8 +15,6 @@ void IOFaster() {
 int main() {
 
 	IOFaster();
-	long N, temp, goodVal = 0;
-	vector<long> vec;
 
 	return 0;
 }

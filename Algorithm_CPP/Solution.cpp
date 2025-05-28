@@ -49,6 +49,30 @@ int Solution::solution_250507_02(vector<int> numbers, int target)
 	return answer;
 }
 
+string Solution::solution_250528_01(vector<int> numbers)
+{
+	string answer = "";
+
+	vector<string> strs;
+	for (int num : numbers) {
+		strs.push_back(to_string(num));
+	}
+
+	sort(strs.begin(), strs.end(), [](const string &a, const string &b) {
+		return a + b > b + a;
+	});
+
+	if (!strs.empty() && strs[0] == "0") {
+		return "0";
+	}
+
+	for (string &s : strs) {
+		answer += s;
+	}
+
+	return answer;
+}
+
 int Solution::solution_250523_01()
 {
 	// Two Pointer
