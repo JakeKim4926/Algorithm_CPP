@@ -137,6 +137,31 @@ int Solution::solution_250529_01(vector<vector<int>> maps)
 	return -1;
 }
 
+void dfs_250530_01(int &node, vector<vector<int>> &computers, vector<bool> &visit) {
+	if (visit[node])
+		return;
+
+	visit[node] = true;
+	for (int i = 0; i < computers[node].size(); i++) {
+		if (!visit[i] && computers[node][i])
+			dfs_250530_01(i, computers, visit);
+	}
+}
+
+int Solution::solution_250530_01(int n, vector<vector<int>> computers)
+{
+	int answer = 0;
+	vector<bool> visit(n);
+	for (int i = 0; i < visit.size(); i++) {
+		if (!visit[i]) {
+			dfs_250530_01(i, computers, visit);
+			answer++;
+		}
+	}
+
+	return answer;
+}
+
 int Solution::solution_250523_01()
 {
 	// Two Pointer
