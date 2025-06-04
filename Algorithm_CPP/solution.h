@@ -12,6 +12,7 @@ public:
 	void IOFaster() {
 		ios::sync_with_stdio(false);
 		cin.tie(nullptr);
+		cout.tie(nullptr);
 	}
 
 	// Programmers
@@ -22,6 +23,8 @@ public:
 	int		solution_250530_01(int n, vector<vector<int>> computers);				// 네트워크 (dfs)
 	int		solution_250602_01(string begin, string target, vector<string> words);	// 단어 변환 (bfs)
 
+
 	// Baekjoon
 	int		solution_250523_01();													// No.1253 좋다
+	int		solution_250604_01();													// No.1377 버블 소트
 };
