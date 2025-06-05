@@ -287,3 +287,44 @@ int Solution::solution_250604_01()
 
 	return 0;
 }
+
+bool isPrime_250605(int num) {
+	if (num == 2)
+		return true;
+
+	for (int i = 2; i < num; i++)
+		if (num % i == 0)
+			return false;
+
+	return true;
+}
+
+void dfs_250605(int value, int index, int N) {
+	if (!isPrime_250605(value))
+		return;
+
+	if (index == N) {
+		cout << value << "\n";
+		return;
+	}
+
+	for (int i = 0; i <= 9; i++) {
+		int temp = value * 10 + i;
+		dfs_250605(temp, index + 1, N);
+	}
+}
+
+int Solution::solution_250605_01()
+{
+	IOFaster();
+
+	int N;
+	cin >> N;
+
+	int prime[] = { 2,3,5,7 };
+
+	for (int i = 0; i < 4; i++)
+		dfs_250605(prime[i], 1, N);
+
+	return 0;
+}
