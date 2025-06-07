@@ -13,8 +13,10 @@ void IOFaster() {
 int main() {
 	IOFaster();
 
-	int N;
-	cin >> N;
+	int node, edge = 0;
+	bool result = false;
+	cin >> node >> edge;
+
 
 	return 0;
 }

@@ -28,4 +28,5 @@ public:
 	int		solution_250523_01();													// No.1253 좋다
 	int		solution_250604_01();													// No.1377 버블 소트
 	int		solution_250605_01();													// No.2023 신기한 소수
+	int		solution_250607_01();													// No.13023 ABCDE
 };

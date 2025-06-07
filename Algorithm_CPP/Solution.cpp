@@ -328,3 +328,52 @@ int Solution::solution_250605_01()
 
 	return 0;
 }
+
+bool friendship(int node, int index, vector<bool> &visit, vector<vector<int>> &friends) {
+	if (index == 4)
+		return true;
+
+	visit[node] = true;
+	for (int i = 0; i < friends[node].size(); i++) {
+		int next = friends[node][i];
+		if (!visit[next]) {
+			visit[next] = true;
+			bool result = friendship(next, index + 1, visit, friends);
+			visit[next] = false;
+
+			if (result)
+				return true;
+		}
+	}
+	return false;
+}
+
+int Solution::solution_250607_01()
+{
+	IOFaster();
+
+	int node, edge = 0;
+	bool result = false;
+	cin >> node >> edge;
+
+	vector<vector<int>> friends(node, vector<int>(0));
+
+	for (int i = 0; i < edge; i++) {
+		int to, from = 0;
+		cin >> to >> from;
+		friends[to].push_back(from);
+		friends[from].push_back(to);
+	}
+
+	for (int i = 0; i < node; i++) {
+		vector<bool> visit(node, false);
+		result = friendship(i, 0, visit, friends);
+		if (result)
+			break;
+	}
+
+	if (result)	cout << 1 << "\n";
+	else		cout << 0 << "\n";
+
+	return 0;
+}
