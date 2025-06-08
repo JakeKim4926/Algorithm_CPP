@@ -377,3 +377,85 @@ int Solution::solution_250607_01()
 
 	return 0;
 }
+
+class Node {
+public:
+	int next;
+	int distance;
+
+	Node() {  };
+
+	Node(int next, int distance) {
+		this->next = next;
+		this->distance = distance;
+	}
+};
+
+void bfs_250608(int &index, int &max, vector<vector<Node>> &tree) {
+	vector<bool> visit(tree.size());
+	visit[index] = true;
+
+	vector<int> vecDistance(tree.size());
+
+	queue<Node> bfs;
+	for (int i = 0; i < tree[index].size(); i++)
+		bfs.push(Node(tree[index][i].next, tree[index][i].distance));
+
+	while (!bfs.empty()) {
+		Node temp = bfs.front();
+		bfs.pop();
+
+		vecDistance[temp.next] = temp.distance;
+
+		visit[temp.next] = true;
+		for (int i = 0; i < tree[temp.next].size(); i++) {
+			int next = tree[temp.next][i].next;
+			int distance = tree[temp.next][i].distance;
+			if (!visit[next]) {
+				bfs.push(Node(next, temp.distance + distance));
+			}
+		}
+	}
+
+	for (int i = 1; i < tree.size(); i++) {
+		if (max < vecDistance[i]) {
+			max = vecDistance[i];
+			index = i;
+		}
+	}
+}
+
+int Solution::solution_250608_01()
+{
+	IOFaster();
+
+	int V;
+	cin >> V;
+
+	vector<vector<Node>> tree(V + 1, vector<Node>(0));
+
+	int temp = 1;
+	while (temp <= V) {
+		int node, next, distance = 0;
+		cin >> node;
+
+		while (1) {
+			cin >> next;
+			if (next == -1)
+				break;
+
+			cin >> distance;
+
+			tree[node].push_back(Node(next, distance));
+		}
+		temp++;
+	}
+
+	int max = 0, index = 1;
+	bfs_250608(index, max, tree);
+	bfs_250608(index, max, tree);
+
+	cout << max << "\n";
+
+	return 0;
+}

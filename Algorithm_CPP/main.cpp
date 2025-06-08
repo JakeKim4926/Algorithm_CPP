@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 
 using namespace std;
@@ -10,12 +11,13 @@ void IOFaster() {
 	cout.tie(nullptr);
 }
 
+
+
 int main() {
 	IOFaster();
 
-	int node, edge = 0;
-	bool result = false;
-	cin >> node >> edge;
+	int V;
+	cin >> V;
 
 
 	return 0;
