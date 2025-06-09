@@ -11,13 +11,11 @@ void IOFaster() {
 	cout.tie(nullptr);
 }
 
-
-
 int main() {
 	IOFaster();
 
-	int V;
-	cin >> V;
+	int N;
+	cin >> N;
 
 
 	return 0;

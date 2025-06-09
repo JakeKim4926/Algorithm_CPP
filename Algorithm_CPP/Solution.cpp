@@ -459,3 +459,46 @@ int Solution::solution_250608_01()
 
 	return 0;
 }
+
+bool compare_250609(pair<int, int> a, pair<int, int> b) {
+	if (a.second == b.second) {
+		return a.first < b.first;
+	}
+
+	return a.second < b.second;
+}
+
+
+int Solution::solution_250609_01()
+{
+	IOFaster();
+
+	int N;
+	cin >> N;
+	vector<pair<int, int>> vecMeeting;
+	for (int i = 0; i < N; i++) {
+		int start, end = 0;
+		cin >> start >> end;
+		vecMeeting.push_back({ start, end });
+	}
+
+	int result = 1;
+
+	sort(vecMeeting.begin(), vecMeeting.end(), compare_250609);
+
+	int end = vecMeeting[0].second;
+	int index = 1;
+	while (index < N) {
+		if (vecMeeting[index].first < end) {
+			index++;
+			continue;
+		}
+
+		end = vecMeeting[index++].second;
+		result++;
+	}
+
+	cout << result << "\n";
+
+	return 0;
+}
