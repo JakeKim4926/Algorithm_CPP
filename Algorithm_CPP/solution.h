@@ -22,7 +22,7 @@ public:
 	int		solution_250529_01(vector<vector<int> > maps);							// 게임 맵 최단 거리 (bfs)
 	int		solution_250530_01(int n, vector<vector<int>> computers);				// 네트워크 (dfs)
 	int		solution_250602_01(string begin, string target, vector<string> words);	// 단어 변환 (bfs)
-
+	int		solution_250610_01(vector<int> citations);								// H-Index
 
 	// Baekjoon
 	int		solution_250523_01();													// No.1253 좋다

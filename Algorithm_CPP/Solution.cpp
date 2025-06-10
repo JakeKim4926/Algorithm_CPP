@@ -204,6 +204,23 @@ int Solution::solution_250602_01(string begin, string target, vector<string> wor
 	return 0;
 }
 
+int Solution::solution_250610_01(vector<int> citations)
+{
+	int answer = 0;
+	sort(citations.begin(), citations.end(), greater<int>());
+
+	for (int i = 0; i < citations.size(); i++) {
+		if (citations[i] >= i + 1) {
+			answer = i + 1;
+		}
+		else {
+			break;
+		}
+	}
+
+	return answer;
+}
+
 int Solution::solution_250523_01()
 {
 	// Two Pointer
