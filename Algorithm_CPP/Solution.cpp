@@ -221,6 +221,49 @@ int Solution::solution_250610_01(vector<int> citations)
 	return answer;
 }
 
+int Solution::solution_250611_01(int n, vector<vector<int>> costs)
+{
+	vector<vector<pair<int, int>>> graph(n);
+
+	for (const auto& edge : costs) {
+		int from = edge[0];
+		int to = edge[1];
+		int cost = edge[2];
+		graph[from].push_back({ to, cost });
+		graph[to].push_back({ from, cost });
+	}
+
+	vector<bool> visited(n, false);
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+	pq.push({ 0, 0 });
+
+	int totalCost = 0;
+
+	while (!pq.empty()) {
+		pair<int, int> top = pq.top(); 
+		pq.pop();
+
+		int cost = top.first;
+		int node = top.second;
+
+		if (visited[node]) continue;
+
+		visited[node] = true;
+		totalCost += cost;
+
+		for (const auto& edge : graph[node]) {
+			int next = edge.first;
+			int nextCost = edge.second;
+
+			if (!visited[next]) {
+				pq.push({ nextCost, next });
+			}
+		}
+	}
+
+	return totalCost;
+}
+
 int Solution::solution_250523_01()
 {
 	// Two Pointer
