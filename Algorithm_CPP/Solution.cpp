@@ -264,6 +264,105 @@ int Solution::solution_250611_01(int n, vector<vector<int>> costs)
 	return totalCost;
 }
 
+typedef pair<int, int> Coord;
+typedef vector<Coord> Shape;
+
+int dr[4] = { -1, 1, 0, 0 };
+int dc[4] = { 0, 0, -1, 1 };
+
+void normalize(Shape &shape) {
+	int minRow = shape[0].first, minCol = shape[0].second;
+	for (int i = 1; i < shape.size(); i++) {
+		minRow = min(minRow, shape[i].first);
+		minCol = min(minCol, shape[i].second);
+	}
+	for (int i = 0; i < shape.size(); i++) {
+		shape[i].first -= minRow;
+		shape[i].second -= minCol;
+	}
+	sort(shape.begin(), shape.end());
+}
+
+Shape extractShape(int sr, int sc, vector<vector<int>> &board, int target) {
+	int n = board.size();
+	queue<Coord> q;
+	Shape shape;
+	q.push({ sr, sc });
+	board[sr][sc] = -1;
+	shape.push_back({ 0, 0 });
+
+	while (!q.empty()) {
+		Coord cur = q.front(); q.pop();
+		int r = cur.first, c = cur.second;
+
+		for (int d = 0; d < 4; ++d) {
+			int nr = r + dr[d];
+			int nc = c + dc[d];
+			if (nr >= 0 && nc >= 0 && nr < n && nc < n && board[nr][nc] == target) {
+				board[nr][nc] = -1;
+				q.push({ nr, nc });
+				shape.push_back({ nr - sr, nc - sc });
+			}
+		}
+	}
+
+	normalize(shape);
+	return shape;
+}
+
+Shape rotate90(const Shape &shape) {
+	Shape rotated;
+	for (int i = 0; i < shape.size(); i++) {
+		int r = shape[i].first;
+		int c = shape[i].second;
+		rotated.push_back({ c, -r });
+	}
+	normalize(rotated);
+	return rotated;
+}
+
+bool isMatch(const Shape &hole, Shape block) {
+	for (int i = 0; i < 4; i++) {
+		if (hole == block)
+			return true;
+		block = rotate90(block);
+	}
+	return false;
+}
+
+int Solution::solution_250612_01(vector<vector<int>> game_board, vector<vector<int>> table)
+{
+	int n = game_board.size();
+	vector<Shape> blocks;
+	vector<Shape> holes;
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			if (table[i][j] == 1)
+				blocks.push_back(extractShape(i, j, table, 1));
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			if (game_board[i][j] == 0)
+				holes.push_back(extractShape(i, j, game_board, 0));
+
+	int answer = 0;
+	vector<bool> used(blocks.size(), false);
+
+	for (int i = 0; i < holes.size(); i++) {
+		for (int j = 0; j < blocks.size(); j++) {
+			if (used[j]) continue;
+			if (isMatch(holes[i], blocks[j])) {
+				answer += blocks[j].size();
+				used[j] = true;
+				break;
+			}
+		}
+	}
+
+	return answer;
+}
+
 int Solution::solution_250523_01()
 {
 	// Two Pointer
