@@ -11,94 +11,47 @@ void IOFaster() {
 	cout.tie(nullptr);
 }
 
-int dr[] = { 0,1,0,-1 };
-int dc[] = { 1,0,-1,0 };
+void dfs(int index, int& count, vector<bool> &visit, vector<vector<int>> &vecNodes) {
+	visit[index] = true;
+	count++;
 
-void findBlock(int row, int col, vector<vector<bool>> &visit, vector<vector<int>> &table, vector<int> &block) {
-	visit[row][col] = true;
-
-	for (int i = 0; i < 4; i++) {
-		int newRow = row + dr[i];
-		int newCol = col + dc[i];
-
-		if (newRow < 0 || newCol < 0 || newRow >= table.size() || newCol >= table[0].size())
-			continue;
-
-		if (table[newRow][newCol] && !visit[newRow][newCol]) {
-			block.push_back(i);
-			findBlock(newRow, newCol, visit, table, block);
+	for (int i = 0; i < vecNodes[index].size(); i++) {
+		int next = vecNodes[index][i];
+		if(!visit[next]) {
+			dfs(next, count, visit, vecNodes);
 		}
 	}
 }
 
-bool isSame(vector<int> &block, vector<vector<int>> &blocks, vector<int> &isUsed) {
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blocks[i].size() == block.size() && !isUsed[i]) {
-			if (blocks[i].size() == 1) {
-				isUsed[i] = true;
-				return true;
-			}
+int solution(int n, vector<vector<int>> wires) {
+	int answer = INT_MAX;
 
-			for (int j = 0; j < 4; j++) {
-				bool result = true;
-				for (int k = 1; k < block.size(); k++) {
-					int dir = blocks[i][k] + j;
-					if (dir > 3)
-						dir -= 4;
+	vector<vector<int>> vecNodes(n+1);
 
-					if (dir != block[k]) {
-						result = false;
-						break;
-					}
-				}
-				if (result) {
-					isUsed[i] = true;
-					return true;
-				}
-			}
-		}
+	for (auto vec : wires) {
+		int from = vec[0];
+		int to = vec[1];
+
+		vecNodes[from].push_back(to);
+		vecNodes[to].push_back(from);
 	}
 
-	return false;
-}
+	for (int i = 1; i < vecNodes.size(); i++) {
+		for (int j = 0; j < vecNodes[i].size(); j++) {
+			vector<bool> visit(n + 1);
 
-int solution(vector<vector<int>> game_board, vector<vector<int>> table) {
-	int answer = -1;
+			int from = i;
+			int to = vecNodes[i][j];
 
-	vector<vector<int>> blocks;
-	vector<vector<bool>> visit(table.size(), vector<bool>(table[0].size()));
+			visit[to]= true;
+			
+			int count = 0;
+			dfs(from, count, visit, vecNodes);
 
-	for (int i = 0; i < table.size(); i++) {
-		for (int j = 0; j < table[i].size(); j++) {
-			if (table[i][j] && !visit[i][j]) {
-				vector<int> block;
-				block.push_back(-1);
-				findBlock(i, j, visit, table, block);
-				blocks.push_back(block);
-			}
-		}
-	}
-
-	for (int i = 0; i < game_board.size(); i++) {
-		for (int j = 0; j < game_board[i].size(); j++) {
-			game_board[i][j] = !game_board[i][j];
-		}
-	}
-
-	vector<vector<bool>> visitBoard(game_board.size(), vector<bool>(game_board[0].size()));
-	vector<int> isUsed(blocks.size());
-	for (int i = 0; i < game_board.size(); i++) {
-		for (int j = 0; j < game_board[i].size(); j++) {
-			if (game_board[i][j] && !visitBoard[i][j]) {
-				vector<int> block;
-				block.push_back(-1);
-				findBlock(i, j, visitBoard, game_board, block);
-				
-				bool result = isSame(block, blocks, isUsed);
-				if (result) {
-					answer += block.size();
-				}
-			}
+			int elseSize = n - count;
+			int diff = abs(elseSize - count);
+			if (answer > diff)
+				answer = diff;
 		}
 	}
 
