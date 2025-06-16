@@ -25,7 +25,7 @@ public:
 	int		solution_250610_01(vector<int> citations);										// H-Index
 	int		solution_250611_01(int n, vector<vector<int>> costs);							// 섬 연결하기
 	int		solution_250612_01(vector<vector<int>> game_board, vector<vector<int>> table);	// 퍼즐 조각 채우기
-	int		solution_250613_01(int n, vector<vector<int>> wires);	// 전력 망을 둘로 나누기
+	int		solution_250613_01(int n, vector<vector<int>> wires);							// 전력 망을 둘로 나누기
 
 	// Baekjoon
 	int		solution_250523_01();															// No.1253 좋다
@@ -34,4 +34,5 @@ public:
 	int		solution_250607_01();															// No.13023 ABCDE
 	int		solution_250608_01();															// No.1167 트리의 지름
 	int		solution_250609_01();															// No.1931 회의실 배정
+	int		solution_250616_01();															// No.7576 토마토 
 };

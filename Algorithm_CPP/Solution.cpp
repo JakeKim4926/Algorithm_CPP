@@ -709,3 +709,91 @@ int Solution::solution_250609_01()
 
 	return 0;
 }
+
+int Solution::solution_250616_01()
+{
+	struct Tomato {
+		int row;
+		int col;
+		int count;
+
+		Tomato(int row, int col, int count) {
+			this->row = row;
+			this->col = col;
+			this->count = count;
+		}
+	};
+
+	IOFaster();
+
+	int row, col, count = 0;
+	cin >> col >> row;
+	vector<vector<int>> farm(row);
+	queue<Tomato> bfs;
+
+	bool isDone = true;
+
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			int temp = 0;
+			cin >> temp;
+			farm[i].push_back(temp);
+
+			if (temp)
+				bfs.push(Tomato(i, j, 0));
+			else if (!temp && isDone)
+				isDone = false;
+		}
+	}
+
+	if (isDone) {
+		cout << 0 << "\n";
+		return 0;
+	}
+
+	vector<vector<bool>> visit(row, vector<bool>(col));
+
+	int dr[] = { 0,1,0,-1 };
+	int dc[] = { 1,0,-1,0 };
+
+	while (!bfs.empty()) {
+		Tomato temp = bfs.front();
+		bfs.pop();
+
+		if (farm[temp.row][temp.col] != 1 || visit[temp.row][temp.col])
+			continue;
+
+		if (count < temp.count)
+			count = temp.count;
+
+		visit[temp.row][temp.col] = true;
+
+		for (int i = 0; i < 4; i++) {
+			int newRow = temp.row + dr[i];
+			int newCol = temp.col + dc[i];
+
+			if (newRow < 0 || newCol < 0 || newRow >= row || newCol >= col)
+				continue;
+
+			if (farm[newRow][newCol] != 0 || visit[newRow][newCol])
+				continue;
+
+			farm[newRow][newCol] = 1;
+			bfs.push(Tomato(newRow, newCol, temp.count + 1));
+		}
+	}
+
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			if (!farm[i][j]) {
+				cout << -1 << "";
+				return 0;
+			}
+		}
+	}
+
+	cout << count << "\n";
+
+
+	return 0;
+}
