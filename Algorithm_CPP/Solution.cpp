@@ -797,3 +797,30 @@ int Solution::solution_250616_01()
 
 	return 0;
 }
+
+int Solution::solution_251111_01()
+{
+	bool coloredPaper[101][101] = { false, };
+	int N = 0;
+	cin >> N;
+
+	int answer = 0;
+
+	for (int t = 0; t < N; t++) {
+		int col, row = 0;
+		cin >> col >> row;
+
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (coloredPaper[row + i][col + j])
+					continue;
+				coloredPaper[row + i][col + j] = true;
+				answer++;
+			}
+		}
+	}
+
+	cout << answer << endl;
+
+	return 0;
+}

@@ -35,4 +35,5 @@ public:
 	int		solution_250608_01();															// No.1167 트리의 지름
 	int		solution_250609_01();															// No.1931 회의실 배정
 	int		solution_250616_01();															// No.7576 토마토 
+	int		solution_251111_01();															// No.2563 색종이
 };
