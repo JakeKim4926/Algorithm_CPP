@@ -824,3 +824,36 @@ int Solution::solution_251111_01()
 
 	return 0;
 }
+
+int Solution::solution_251112_01()
+{
+	bool parentheses = false;
+	string input;
+	getline(cin, input);
+
+	vector<char> sentences;
+
+	for (int i = 0; i < input.length(); i++) {
+		if (parentheses) {
+			if (input.at(i) == '>')
+				parentheses = false;
+			cout << input.at(i);
+		} else if (input.at(i) == '<' || input.at(i) == ' ') {
+			parentheses = input.at(i) == '<';
+			while (!sentences.empty()) {
+				cout << sentences.back();
+				sentences.pop_back();
+			}
+			cout << input.at(i);
+		} else
+			sentences.push_back(input.at(i));
+	}
+
+	while (!sentences.empty()) {
+		cout << sentences.back();
+		sentences.pop_back();
+	}
+
+
+	return 0;
+}
