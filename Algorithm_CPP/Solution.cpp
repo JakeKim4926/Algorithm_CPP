@@ -857,3 +857,66 @@ int Solution::solution_251112_01()
 
 	return 0;
 }
+
+int Solution::solution_251113_01()
+{
+	int N = 0;
+	cin >> N;
+
+	int answer = 0;
+	int origin[91] = { 0, };
+
+	if (N == 0) {
+		cout << 0 << endl;
+		return 0;
+	}
+
+	string input;
+	cin >> input;
+	for (int i = 0; i < input.length(); i++) {
+		origin[(int)input.at(i)]++;
+	}
+
+	for (int i = 0; i < N - 1; i++) {
+		string word;
+		cin >> word;
+		int sample[91] = { 0, };
+		for (int j = 0; j < word.length(); j++) {
+			sample[(int)word.at(j)]++;
+		}
+
+		int isDiff = 0;
+		bool more = false;
+		bool less = false;
+		for (int j = 65; j < 91; j++) {
+			int count = origin[j] - sample[j];
+			if (count < -1 || count > 1) {
+				isDiff = 2;
+				break;
+			}
+			else if (count == 1) {
+				if (more) {
+					isDiff = 2;
+					break;
+				}
+				else
+					more = true;
+			}
+			else if (count == -1) {
+				if (less) {
+					isDiff = 2;
+					break;
+				}
+				else
+					less = true;
+			}
+		}
+
+		if (isDiff < 2)
+			answer++;
+	}
+
+	cout << answer << endl;
+
+	return 0;
+}

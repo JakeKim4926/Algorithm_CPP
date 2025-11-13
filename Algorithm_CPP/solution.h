@@ -36,5 +36,6 @@ public:
 	int		solution_250609_01();															// No.1931 회의실 배정
 	int		solution_250616_01();															// No.7576 토마토 
 	int		solution_251111_01();															// No.2563 색종이
-	int		solution_251112_01();															// No.17413 
+	int		solution_251112_01();															// No.17413 단어 뒤집기 2
+	int		solution_251113_01();															// No.2607 비슷한 단어
 };
