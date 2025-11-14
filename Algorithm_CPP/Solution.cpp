@@ -920,3 +920,29 @@ int Solution::solution_251113_01()
 
 	return 0;
 }
+
+int Solution::solution_251114_01()
+{
+	int N, K = 0;
+	cin >> N >> K;
+
+	vector<int> coins;
+	vector<long> dp(K + 1);
+
+	for (int i = 0; i < N; i++) {
+		int coin = 0;
+		cin >> coin;
+		coins.push_back(coin);
+	}
+
+	dp[0] = 1;
+	for (int i = 0; i < N; i++) {
+		for (int j = coins[i]; j <= K; j++) {
+			dp[j] += dp[j - coins[i]];
+		}
+	}
+
+	cout << dp[K] << endl;
+
+	return 0;
+}
