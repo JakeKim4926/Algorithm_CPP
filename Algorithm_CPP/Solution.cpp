@@ -946,3 +946,41 @@ int Solution::solution_251114_01()
 
 	return 0;
 }
+
+void NandM_05(int index, vector<int>& stack, vector<bool>& visit, vector<int>& nums) {
+	if (index >= stack.size()) {
+		for (int idx : stack) {
+			cout << nums[idx] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = 0; i < nums.size(); i++) {
+		if (!visit[i]) {
+			visit[i] = true;
+			stack[index] = i;
+			NandM_05(index + 1, stack, visit, nums);
+			visit[i] = false;
+		}
+	}
+}
+
+int Solution::solution_251115_01()
+{
+	int N, M = 0;
+	cin >> N >> M;
+
+	vector<bool> visit(N);
+	vector<int> stack(M);
+	vector<int> nums(N);
+
+	for (int i = 0; i < N; i++) {
+		cin >> nums[i];
+	}
+
+	sort(nums.begin(), nums.end());
+	NandM_05(0, stack, visit, nums);
+
+	return 0;
+}

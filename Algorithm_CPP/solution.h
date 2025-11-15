@@ -40,4 +40,5 @@ public:
 	int		solution_251112_01();															// No.17413 단어 뒤집기 2
 	int		solution_251113_01();															// No.2607 비슷한 단어
 	int		solution_251114_01();															// No.2293 동전 1
+	int		solution_251115_01();															// No.15654 N과 M(5)
 };
