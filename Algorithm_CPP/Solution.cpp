@@ -1017,3 +1017,42 @@ int Solution::solution_251116_01() {
 
 	return 0;
 }
+
+bool akaraka(string& input) {
+	if (input.length() <= 1)
+		return true;
+
+	int left = 0;
+	int right = input.length() - 1;
+	while (left < right) {
+		if (input.at(left) != input.at(right))
+			return false;
+
+		left++;
+		right--;
+	}
+
+	string leftHalf = input.substr(0, input.length() / 2);
+	string rightHalf = input.substr(input.length() / 2 + input.length() % 2, input.length());
+
+	return akaraka(leftHalf) && akaraka(rightHalf);
+}
+
+int Solution::solution_251117_01()
+{
+	string input = "";
+	cin >> input;
+
+	if (input.length() == 1) {
+		cout << "AKARAKA\n";
+		return 0;
+	}
+
+	bool isAkaraka = true;
+	isAkaraka = akaraka(input);
+
+	if (isAkaraka)	cout << "AKARAKA\n";
+	else			cout << "IPSELENTI\n";
+
+	return 0;
+}

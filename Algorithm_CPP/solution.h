@@ -42,4 +42,5 @@ public:
 	int		solution_251114_01();															// No.2293 동전 1
 	int		solution_251115_01();															// No.15654 N과 M(5)
 	int		solution_251116_01();															// No.17478 재귀함수가 뭔가요?
+	int		solution_251117_01();															// No.23304 아카라카
 };
