@@ -58,15 +58,15 @@ string Solution::solution_250528_01(vector<int> numbers)
 		strs.push_back(to_string(num));
 	}
 
-	sort(strs.begin(), strs.end(), [](const string &a, const string &b) {
+	sort(strs.begin(), strs.end(), [](const string& a, const string& b) {
 		return a + b > b + a;
-	});
+		});
 
 	if (!strs.empty() && strs[0] == "0") {
 		return "0";
 	}
 
-	for (string &s : strs) {
+	for (string& s : strs) {
 		answer += s;
 	}
 
@@ -137,7 +137,7 @@ int Solution::solution_250529_01(vector<vector<int>> maps)
 	return -1;
 }
 
-void dfs_250530_01(int &node, vector<vector<int>> &computers, vector<bool> &visit) {
+void dfs_250530_01(int& node, vector<vector<int>>& computers, vector<bool>& visit) {
 	if (visit[node])
 		return;
 
@@ -240,7 +240,7 @@ int Solution::solution_250611_01(int n, vector<vector<int>> costs)
 	int totalCost = 0;
 
 	while (!pq.empty()) {
-		pair<int, int> top = pq.top(); 
+		pair<int, int> top = pq.top();
 		pq.pop();
 
 		int cost = top.first;
@@ -270,7 +270,7 @@ typedef vector<Coord> Shape;
 int dr[4] = { -1, 1, 0, 0 };
 int dc[4] = { 0, 0, -1, 1 };
 
-void normalize(Shape &shape) {
+void normalize(Shape& shape) {
 	int minRow = shape[0].first, minCol = shape[0].second;
 	for (int i = 1; i < shape.size(); i++) {
 		minRow = min(minRow, shape[i].first);
@@ -283,7 +283,7 @@ void normalize(Shape &shape) {
 	sort(shape.begin(), shape.end());
 }
 
-Shape extractShape(int sr, int sc, vector<vector<int>> &board, int target) {
+Shape extractShape(int sr, int sc, vector<vector<int>>& board, int target) {
 	int n = board.size();
 	queue<Coord> q;
 	Shape shape;
@@ -310,7 +310,7 @@ Shape extractShape(int sr, int sc, vector<vector<int>> &board, int target) {
 	return shape;
 }
 
-Shape rotate90(const Shape &shape) {
+Shape rotate90(const Shape& shape) {
 	Shape rotated;
 	for (int i = 0; i < shape.size(); i++) {
 		int r = shape[i].first;
@@ -321,7 +321,7 @@ Shape rotate90(const Shape &shape) {
 	return rotated;
 }
 
-bool isMatch(const Shape &hole, Shape block) {
+bool isMatch(const Shape& hole, Shape block) {
 	for (int i = 0; i < 4; i++) {
 		if (hole == block)
 			return true;
@@ -363,7 +363,7 @@ int Solution::solution_250612_01(vector<vector<int>> game_board, vector<vector<i
 	return answer;
 }
 
-void dfs_250613(int index, int& count, vector<bool> &visit, vector<vector<int>> &vecNodes) {
+void dfs_250613(int index, int& count, vector<bool>& visit, vector<vector<int>>& vecNodes) {
 	visit[index] = true;
 	count++;
 
@@ -536,7 +536,7 @@ int Solution::solution_250605_01()
 	return 0;
 }
 
-bool friendship(int node, int index, vector<bool> &visit, vector<vector<int>> &friends) {
+bool friendship(int node, int index, vector<bool>& visit, vector<vector<int>>& friends) {
 	if (index == 4)
 		return true;
 
@@ -590,7 +590,7 @@ public:
 	int next;
 	int distance;
 
-	Node() {  };
+	Node() {};
 
 	Node(int next, int distance) {
 		this->next = next;
@@ -598,7 +598,7 @@ public:
 	}
 };
 
-void bfs_250608(int &index, int &max, vector<vector<Node>> &tree) {
+void bfs_250608(int& index, int& max, vector<vector<Node>>& tree) {
 	vector<bool> visit(tree.size());
 	visit[index] = true;
 
@@ -838,14 +838,16 @@ int Solution::solution_251112_01()
 			if (input.at(i) == '>')
 				parentheses = false;
 			cout << input.at(i);
-		} else if (input.at(i) == '<' || input.at(i) == ' ') {
+		}
+		else if (input.at(i) == '<' || input.at(i) == ' ') {
 			parentheses = input.at(i) == '<';
 			while (!sentences.empty()) {
 				cout << sentences.back();
 				sentences.pop_back();
 			}
 			cout << input.at(i);
-		} else
+		}
+		else
 			sentences.push_back(input.at(i));
 	}
 
@@ -1053,6 +1055,86 @@ int Solution::solution_251117_01()
 
 	if (isAkaraka)	cout << "AKARAKA\n";
 	else			cout << "IPSELENTI\n";
+
+	return 0;
+}
+
+class tomato_251118 {
+public:
+	tomato_251118(int z, int row, int col, int count) {
+		this->z = z;
+		this->row = row;
+		this->col = col;
+		this->count = count;
+	}
+
+	int row;
+	int col;
+	int z;
+	int count;
+};
+
+int Solution::solution_251118_01()
+{
+	int M = 0, N = 0, H = 0;
+	cin >> M >> N >> H;
+
+	int result = 0;
+
+	vector<vector<vector<bool>>> visit(H, vector<vector<bool>>(N, vector<bool>(M, false)));;
+	vector<vector<vector<int>>> box(H, vector<vector<int>>(N, vector<int>(M, 0)));
+
+	queue<tomato_251118> queue;
+
+	int dr[] = { 0,0,1,-1,0,0 };
+	int dc[] = { 1,-1,0,0,0,0 };
+	int du[] = { 0,0,0,0,1,-1 };
+
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < N; j++) {
+			for (int k = 0; k < M; k++) {
+				cin >> box[i][j][k];
+				if (box[i][j][k] == 1)
+					queue.push(tomato_251118(i, j, k, 0));
+			}
+		}
+	}
+
+	while (!queue.empty()) {
+		tomato_251118 temp = queue.front();
+		queue.pop();
+
+		if (result < temp.count)
+			result = temp.count;
+
+		for (int i = 0; i < 6; i++) {
+			int newZ = temp.z + du[i];
+			int newRow = temp.row + dr[i];
+			int newCol = temp.col + dc[i];
+
+			if (newZ < 0 || newRow < 0 || newCol < 0 || newZ >= H || newRow >= N || newCol >= M)
+				continue;
+
+			if (box[newZ][newRow][newCol] != 0)
+				continue;
+
+			box[newZ][newRow][newCol] = 1;
+			queue.push(tomato_251118(newZ, newRow, newCol, temp.count + 1));
+		}
+	}
+
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < N; j++) {
+			for (int k = 0; k < M; k++) {
+				if (box[i][j][k] == 0) {
+					result = -1;
+					break;
+				}
+			}
+		}
+	}
+
+	cout << result << "\n";
 
 	return 0;
 }
