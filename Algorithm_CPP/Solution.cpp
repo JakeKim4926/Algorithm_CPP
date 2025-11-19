@@ -1138,3 +1138,61 @@ int Solution::solution_251118_01()
 
 	return 0;
 }
+
+int Solution::solution_251119_01()
+{
+	string input;
+	string bomb;
+
+	vector<char> word;
+	vector<char> stack;
+
+	cin >> input >> bomb;
+
+	for (int i = 0; i < input.length(); i++)
+		word.push_back(input.at(i));
+
+	while (!word.empty()) {
+		int index = word.size() - bomb.length();
+		if (index < 0)
+			break;
+
+		bool isBomb = true;
+		int bombIndex = 0;
+		for (int i = 0; i < bomb.length(); i++) {
+			if (word[index + i] != bomb[i]) {
+				isBomb = false;
+				break;
+			}
+		}
+
+		if (isBomb) {
+			for (int i = 0; i < bomb.length(); i++)
+				word.pop_back();
+
+			int size = bomb.length();
+			while (!stack.empty() && size > 1) {
+				word.push_back(stack.back());
+				stack.pop_back();
+				size--;
+			}
+		} else {
+			stack.push_back(word.back());
+			word.pop_back();
+		}
+	}
+
+	while (!word.empty()) {
+		stack.push_back(word.back());
+		word.pop_back();
+	}
+
+	if (stack.empty())
+		cout << "FRULA\n";
+	else {
+		for (int i = stack.size() - 1; i >= 0; i--)
+			cout << stack[i];
+	}
+
+	return 0;
+}
