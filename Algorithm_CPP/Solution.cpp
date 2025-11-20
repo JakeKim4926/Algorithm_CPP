@@ -1196,3 +1196,28 @@ int Solution::solution_251119_01()
 
 	return 0;
 }
+
+int Solution::solution_251120_01()
+{
+	int N, K;
+	cin >> N >> K;
+
+	vector<pair<int, int>> values(N);
+	for (int i = 0; i < N; i++)
+		cin >> values[i].first >> values[i].second;
+
+	vector<int> dp(K + 1, 0);
+
+	for (int i = 0; i < N; i++) {
+		int w_i = values[i].first;
+		int v_i = values[i].second;
+
+		for (int w = K; w >= w_i; --w) {
+			dp[w] = max(dp[w], dp[w - w_i] + v_i);
+		}
+	}
+
+	cout << dp[K];
+
+	return 0;
+}
