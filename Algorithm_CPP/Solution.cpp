@@ -1221,3 +1221,83 @@ int Solution::solution_251120_01()
 
 	return 0;
 }
+
+class Happy_251121 {
+public:
+	int index;
+	int x;
+	int y;
+	int beer;
+	Happy_251121(int index, int x, int y, int beer) {
+		this->index = index;
+		this->x = x;
+		this->y = y;
+		this->beer = beer;
+	}
+};
+
+bool compareStore_251121(pair<int, int> a, pair<int, int> b) {
+
+	if (a.first != b.first)
+		return a.first < b.first;
+	else
+		return a.second < b.second;
+
+}
+
+int Solution::solution_251121_01()
+{
+	int T = 0, N = 0;
+	int minCoordinate = -32768;
+	int maxCoordinate = 32767;
+
+	cin >> T;
+	for (int t = 0; t < T; t++) {
+		cin >> N;
+		pair<int, int> home;
+		pair<int, int> festival;
+
+		vector<pair<int, int>> store(N);
+		vector<bool> visitStore(N);
+
+		cin >> home.first >> home.second;
+		for (int i = 0; i < N; i++)
+			cin >> store[i].first >> store[i].second;
+
+		sort(store.begin(), store.end(), compareStore_251121);
+
+		cin >> festival.first >> festival.second;
+
+		queue<Happy_251121> queue;
+		queue.push(Happy_251121(0, home.first, home.second, 20));
+
+		string result = "sad";
+		while (!queue.empty()) {
+			Happy_251121 temp = queue.front();
+			queue.pop();
+
+			int diffXToFestival = abs(festival.first - temp.x);
+			int diffYToFestival = abs(festival.second - temp.y);
+
+			int maxDistance = temp.beer * 50;
+			if (diffXToFestival + diffYToFestival <= maxDistance) {
+				result = "happy";
+				break;
+			}
+
+			for (int i = 0; i < store.size(); i++) {
+				int diffXToStore = abs(store[i].first - temp.x);
+				int diffYToStore = abs(store[i].second - temp.y);
+
+				int maxDistance = temp.beer * 50;
+				if (diffXToStore + diffYToStore <= maxDistance && !visitStore[i]) {
+					visitStore[i] = true;
+					queue.push(Happy_251121(i, store[i].first, store[i].second, 20));
+				}
+			}
+
+		}
+		cout << result << "\n";
+	}
+	return 0;
+}
