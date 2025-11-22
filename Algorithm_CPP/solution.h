@@ -47,4 +47,5 @@ public:
 	int		solution_251119_01();															// No.9935 문자열 폭발
 	int		solution_251120_01();															// No.12865 평범한 배낭
 	int		solution_251121_01();															// No.9205 맥주 마시면서 걸어가기
+	int		solution_251122_01();															// No.4673 셀프 넘버
 };

@@ -1301,3 +1301,25 @@ int Solution::solution_251121_01()
 	}
 	return 0;
 }
+
+int Solution::solution_251122_01() {
+
+	bool nums[10000] = { false, };
+	for (int i = 1; i < 10000; i++) {
+		int nTemp = i;
+		int nSum = i;
+		while (nTemp > 0) {
+			nSum += nTemp % 10;
+			nTemp /= 10;
+		}
+		if (nSum < 10000)
+			nums[nSum] = true;
+	}
+
+	for (int i = 1; i < 10000; i++) {
+		if (!nums[i])
+			cout << i << "\n";
+	}
+
+	return 0;
+}
