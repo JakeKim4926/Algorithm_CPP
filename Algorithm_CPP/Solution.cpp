@@ -1323,3 +1323,60 @@ int Solution::solution_251122_01() {
 
 	return 0;
 }
+
+int Solution::solution_251123_01() {
+
+	int R = 0, C = 0, N = 0;
+	cin >> R >> C >> N;
+
+	vector<vector<int>> map(R, vector<int>(C));
+	for (int i = 0; i < R; i++) {
+		string line = "";
+		cin >> line;
+		for (int j = 0; j < C; j++) {
+			if (line.at(j) == 'O')
+				map[i][j] = 2;
+		}
+	}
+
+	int dr[] = { 0,0,1,-1 };
+	int dc[] = { 1,-1,0,0 };
+	for (int n = 0; n < N - 1; n++) {
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+				if (map[i][j] > 0) {
+					map[i][j]--;;
+				} else
+					map[i][j] = 3;
+
+			}
+		}
+
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+				if (!map[i][j]) {
+					for (int d = 0; d < 4; d++) {
+						int newRow = dr[d] + i;
+						int newCol = dc[d] + j;
+						if (newRow < 0 || newCol < 0 || newRow >= R || newCol >= C)
+							continue;
+						if (map[newRow][newCol] > 1)
+							map[newRow][newCol] = -1;
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < R; i++) {
+		for (int j = 0; j < C; j++) {
+			if (map[i][j] > 0)
+				cout << "O";
+			else
+				cout << ".";
+		}
+		cout << "\n";
+	}
+
+	return 0;
+}
