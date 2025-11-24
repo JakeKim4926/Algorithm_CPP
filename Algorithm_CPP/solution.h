@@ -49,4 +49,5 @@ public:
 	int		solution_251121_01();															// No.9205 맥주 마시면서 걸어가기
 	int		solution_251122_01();															// No.4673 셀프 넘버
 	int		solution_251123_01();															// No.16918 봄버맨
+	int		solution_251124_01();															// No.18869 멀티버스 2
 };

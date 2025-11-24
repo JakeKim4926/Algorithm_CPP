@@ -1380,3 +1380,65 @@ int Solution::solution_251123_01() {
 
 	return 0;
 }
+
+bool compare_251124(pair<int, int> a, pair<int, int> b) {
+	if (a.first != b.first)
+		return a.first < b.first;
+
+	return a.second < b.second;
+}
+
+int Solution::solution_251124_01()
+{
+	int M = 0, N = 0;
+
+	cin >> M >> N;
+	vector<vector<pair<int, int>>> multiverse(M);
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			pair<int, int> temp;
+			cin >> temp.first;
+			temp.second = j;
+			multiverse[i].push_back(temp);
+		}
+	}
+
+	for (int i = 0; i < M; i++)
+		std::sort(multiverse[i].begin(), multiverse[i].end(), compare_251124);
+
+	vector<vector<pair<int, int>>> ranks(M);
+	for (int i = 0; i < M; i++) {
+		int rank = 0;
+		for (int j = 0; j < N - 1; j++) {
+			pair<int, int> temp;
+			temp.first = multiverse[i][j].second;
+			temp.second = rank;
+			ranks[i].push_back(temp);
+			if (multiverse[i][j].first != multiverse[i][j + 1].first)
+				rank++;
+		}
+		pair<int, int> temp;
+		temp.first = multiverse[i][N - 1].second;
+		temp.second = rank;
+		ranks[i].push_back(temp);
+	}
+
+	int result = 0;
+	for (int i = 0; i < M - 1; i++) {
+		for (int j = i + 1; j < M; j++) {
+			bool isMultiverse = true;
+			for (int k = 0; k < N; k++) {
+				if (ranks[i][k].first != ranks[j][k].first
+					|| ranks[i][k].second != ranks[j][k].second) {
+					isMultiverse = false;
+					break;
+				}
+			}
+			if (isMultiverse)
+				result++;
+		}
+	}
+
+	cout << result;
+	return 0;
+}
