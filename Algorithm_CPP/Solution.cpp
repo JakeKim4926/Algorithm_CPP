@@ -1442,3 +1442,41 @@ int Solution::solution_251124_01()
 	cout << result;
 	return 0;
 }
+
+int Solution::solution_251125_01()
+{
+	int N = 0, K = 0;
+	cin >> N >> K;
+
+	vector<int> sensors(N);
+	for (int i = 0; i < N; i++) {
+		cin >> sensors[i];
+	}
+
+	if (K == N) {
+		cout << '0';
+		return 0;
+	}
+
+	sort(sensors.begin(), sensors.end());
+	vector<int> distances;
+	for (int i = 0; i < N - 1; i++)
+		distances.push_back(sensors[i + 1] - sensors[i]);
+
+	sort(distances.begin(), distances.end());
+
+	for (int i = 0; i < K - 1; i++) {
+		if (distances.empty())
+			break;
+
+		distances.pop_back();
+	}
+
+	int sum = 0;
+	for (int d : distances)
+		sum += d;
+
+	cout << sum;
+
+	return 0;
+}

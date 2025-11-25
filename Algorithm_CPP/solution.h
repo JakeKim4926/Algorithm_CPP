@@ -29,25 +29,26 @@ public:
 	int		solution_250613_01(int n, vector<vector<int>> wires);							// 전력 망을 둘로 나누기
 
 	// Baekjoon
-	int		solution_250523_01();															// No.1253 좋다
-	int		solution_250604_01();															// No.1377 버블 소트
-	int		solution_250605_01();															// No.2023 신기한 소수
-	int		solution_250607_01();															// No.13023 ABCDE
-	int		solution_250608_01();															// No.1167 트리의 지름
-	int		solution_250609_01();															// No.1931 회의실 배정
-	int		solution_250616_01();															// No.7576 토마토 
-	int		solution_251111_01();															// No.2563 색종이
-	int		solution_251112_01();															// No.17413 단어 뒤집기 2
-	int		solution_251113_01();															// No.2607 비슷한 단어
-	int		solution_251114_01();															// No.2293 동전 1
-	int		solution_251115_01();															// No.15654 N과 M(5)
-	int		solution_251116_01();															// No.17478 재귀함수가 뭔가요?
-	int		solution_251117_01();															// No.23304 아카라카
-	int		solution_251118_01();															// No.7569 토마토
-	int		solution_251119_01();															// No.9935 문자열 폭발
-	int		solution_251120_01();															// No.12865 평범한 배낭
-	int		solution_251121_01();															// No.9205 맥주 마시면서 걸어가기
-	int		solution_251122_01();															// No.4673 셀프 넘버
-	int		solution_251123_01();															// No.16918 봄버맨
-	int		solution_251124_01();															// No.18869 멀티버스 2
+	int		solution_250523_01();															// [G4] No.1253 좋다
+	int		solution_250604_01();															// [G2] No.1377 버블 소트
+	int		solution_250605_01();															// [G5] No.2023 신기한 소수
+	int		solution_250607_01();															// [G5] No.13023 ABCDE
+	int		solution_250608_01();															// [G2] No.1167 트리의 지름
+	int		solution_250609_01();															// [G5] No.1931 회의실 배정
+	int		solution_250616_01();															// [G5] No.7576 토마토 
+	int		solution_251111_01();															// [S5] No.2563 색종이
+	int		solution_251112_01();															// [S3] No.17413 단어 뒤집기 2
+	int		solution_251113_01();															// [S2] No.2607 비슷한 단어
+	int		solution_251114_01();															// [G5] No.2293 동전 1
+	int		solution_251115_01();															// [S3] No.15654 N과 M(5)
+	int		solution_251116_01();															// [S5] No.17478 재귀함수가 뭔가요?
+	int		solution_251117_01();															// [S2] No.23304 아카라카
+	int		solution_251118_01();															// [G5] No.7569 토마토
+	int		solution_251119_01();															// [G4] No.9935 문자열 폭발
+	int		solution_251120_01();															// [G5] No.12865 평범한 배낭
+	int		solution_251121_01();															// [G5] No.9205 맥주 마시면서 걸어가기
+	int		solution_251122_01();															// [S5] No.4673 셀프 넘버
+	int		solution_251123_01();															// [S1] No.16918 봄버맨
+	int		solution_251124_01();															// [G5] No.18869 멀티버스 2
+	int		solution_251125_01();															// [G5] No.2212 센서
 };
