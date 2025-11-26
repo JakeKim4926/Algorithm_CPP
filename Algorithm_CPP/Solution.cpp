@@ -1480,3 +1480,75 @@ int Solution::solution_251125_01()
 
 	return 0;
 }
+
+struct Node_251126 {
+    char value;
+    bool isEnd;
+    unordered_map<char, Node_251126*> children;
+
+	Node_251126(char ch) : value(ch), isEnd(false) {}
+
+    ~Node_251126() {
+        for (auto kv : children) {
+            delete kv.second;
+        }
+    }
+};
+
+int Solution::solution_251126_01()
+{
+	int T = 0;
+	cin >> T;
+
+	for (int t = 0; t < T; t++) {
+		int N = 0;
+		cin >> N;
+
+		vector<string> numbers(N);
+		for (int i = 0; i < N; i++)
+			cin >> numbers[i];
+
+
+		Node_251126* head = new Node_251126('h');
+		bool isSingle = true;
+
+		for (string s : numbers) {
+			Node_251126* node = head;
+
+			for (int i = 0; i < s.length(); i++) {
+				auto it = node->children.find(s[i]);
+
+				if (it == node->children.end()) {
+					Node_251126* child = new Node_251126(s[i]);
+					node->children[s[i]] = child;
+					node = child;
+				}
+				else {
+					node = it->second;
+				}
+
+				if (node->isEnd && i != s.length() - 1) {
+					isSingle = false;
+					break;
+				}
+			}
+
+			if (!isSingle) break;
+
+			if (!node->children.empty()) {
+				isSingle = false;
+				break;
+			}
+
+			node->isEnd = true;
+		}
+
+		if (isSingle)
+			cout << "YES\n";
+		else
+			cout << "NO\n";
+
+		delete head;
+	}
+	return 0;
+}
