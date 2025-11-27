@@ -52,4 +52,5 @@ public:
 	int		solution_251124_01();															// [G5] No.18869 멀티버스 2
 	int		solution_251125_01();															// [G5] No.2212 센서
 	int		solution_251126_01();															// [G4] No.5052 전화번호 목록
+	int		solution_251127_01();															// [G5] No.15591 MooTube (Silver)
 };

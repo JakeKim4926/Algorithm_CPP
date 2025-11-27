@@ -1552,3 +1552,52 @@ int Solution::solution_251126_01()
 	}
 	return 0;
 }
+
+int Solution::solution_251127_01() {
+
+	int N = 0, Q = 0;
+
+	cin >> N >> Q;
+	vector<vector<pair<int, int>>> mootube(N + 1);
+
+	for (int i = 0; i < N - 1; i++) {
+		int first = 0, second = 0, usado = 0;
+		cin >> first >> second >> usado;
+		pair<int, int> temp;
+		temp.first = second;
+		temp.second = usado;
+		mootube[first].push_back(temp);
+		temp.first = first;
+		mootube[second].push_back(temp);
+	}
+
+	for (int i = 0; i < Q; i++) {
+		int k = 0, v = 0, count = 0;
+		cin >> k >> v;
+		queue<int> moo;
+		moo.push(v);
+		vector<bool> visit(N + 1, false);
+
+		while (!moo.empty()) {
+			int temp = moo.front();
+			moo.pop();
+			if (visit[temp])
+				continue;
+
+			visit[temp] = true;
+			for (int m = 0; m < mootube[temp].size(); m++) {
+				int next = mootube[temp][m].first;
+				int usado = mootube[temp][m].second;
+
+				if (!visit[next] && k <= usado) {
+					moo.push(next);
+					count++;
+				}
+			}
+		}
+		cout << count << '\n';
+	}
+
+
+	return 0;
+}
