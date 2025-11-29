@@ -53,9 +53,6 @@ public:
 	int		solution_251125_01();															// [G5] No.2212 센서
 	int		solution_251126_01();															// [G4] No.5052 전화번호 목록
 	int		solution_251127_01();															// [G5] No.15591 MooTube (Silver)
-<<<<<<< HEAD
-	int		solution_251128_01();															// [G5] No.18428 감시 피하기
-=======
 	int		solution_251128_01();															// [G4] No.1976 여행 가자
->>>>>>> f73af1cdb76476e0de554d5d24b447ce370a2ce3
+	int		solution_251129_01();															// [G5] No.18428 감시 피하기
 };
