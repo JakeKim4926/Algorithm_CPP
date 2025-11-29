@@ -1601,3 +1601,71 @@ int Solution::solution_251127_01() {
 
 	return 0;
 }
+
+int Solution::solution_251128_01() {
+
+	int N = 0;
+	cin >> N;
+	vector<vector<int>> hall(N, vector<int>(N, 0));
+	queue<pair<int, int>> teacher;
+
+	for (int i = 0; i < N; i++) {
+		vector<int> temp(N);
+		for (int j = 0; j < N; j++) {
+			char s = 'X';
+			cin >> s;
+			if (s == 'S')
+				temp[j] = 1;
+			if (s == 'T') {
+				temp[j] = 2;
+				pair<int, int> loc;
+				loc.first = i;
+				loc.second = j;
+				teacher.push(loc);
+			}
+		}
+		hall[i] = temp;
+	}
+
+	int count = 3;
+	int dr[] = { 0,0,1,-1 };
+	int dc[] = { 1,-1,0,0 };
+	while (!teacher.empty()) {
+		pair<int, int> temp = teacher.front();
+		teacher.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int newRow = temp.first + dr[i];
+			int newCol = temp.second + dc[i];
+
+			while (newCol >= 0 && newRow >= 0 && newCol < N && newRow < N) {
+				if (hall[newRow][newCol] == 1) {
+					int preRow = newRow - dr[i];
+					int preCol = newCol - dc[i];
+					if (preRow >= 0 && preCol >= 0 && preRow < N && preCol < N) {
+						if (!hall[preRow][preCol]) {
+							count--;
+							if (count < 0) {
+								cout << "NO";
+								return 0;
+							}
+							hall[preRow][preCol] = 3;
+							break;
+						} else if (hall[preRow][preCol] == 2) {
+							cout << "NO";
+							return 0;
+						}
+					}
+				} else if (hall[newRow][newCol] > 1)
+					break;
+
+				newRow += dr[i];
+				newCol += dc[i];
+			}
+		}
+	}
+
+	cout << "YES";
+
+	return 0;
+}
