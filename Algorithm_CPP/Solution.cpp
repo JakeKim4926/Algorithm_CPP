@@ -1602,6 +1602,7 @@ int Solution::solution_251127_01() {
 	return 0;
 }
 
+<<<<<<< HEAD
 int Solution::solution_251128_01() {
 
 	int N = 0;
@@ -1666,6 +1667,73 @@ int Solution::solution_251128_01() {
 	}
 
 	cout << "YES";
+=======
+int Solution::solution_251128_01()
+{
+	int N = 0, M = 0;
+	cin >> N >> M;
+
+	vector<vector<int>> vecCity(N + 1);
+
+	for (int i = 0; i < N; i++) {
+		vector<int> temp;
+		for (int j = 0; j < N; j++) {
+			int city = 0;
+			cin >> city;
+			if (city) {
+				temp.push_back(j + 1);
+			}
+		}
+		if (!temp.empty())
+			vecCity[i + 1] = temp;
+	}
+
+	vector<int> plan(M);
+	for (int i = 0; i < M; i++)
+		cin >> plan[i];
+
+	vector<vector<bool>> ablePlan(N + 1, vector<bool>(N + 1, false));
+	for (int i = 0; i < M - 1; i++) {
+		bool bAble = false;
+		int start = plan[i];
+		int end = plan[i + 1];
+
+		if (ablePlan[start][end] || ablePlan[end][start])
+			continue;
+
+		queue<int> bfs;
+		bfs.push(start);
+		vector<bool> visit(N + 1, false);
+		while (!bfs.empty()) {
+			int temp = bfs.front();
+			bfs.pop();
+			if (temp == end) {
+				bAble = true;
+				ablePlan[start][end] = true;
+				ablePlan[end][start] = true;
+				break;
+			}
+
+			if (visit[temp])
+				continue;
+			visit[temp] = true;
+
+			for (int j = 0; j < vecCity[temp].size(); j++) {
+				int next = vecCity[temp][j];
+				if (!visit[next]) {
+					bfs.push(next);
+				}
+			}
+		}
+
+		if (!bAble) {
+			cout << "NO\n";
+			return 0;
+		}
+	}
+
+	cout << "YES\n";
+>>>>>>> f73af1cdb76476e0de554d5d24b447ce370a2ce3
 
 	return 0;
 }
