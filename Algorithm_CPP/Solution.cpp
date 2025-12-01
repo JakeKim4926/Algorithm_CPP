@@ -1733,3 +1733,29 @@ int Solution::solution_251129_01() {
 		}
 	}
 }
+
+int Solution::solution_251201_01()
+{
+	int N = 0;
+	cin >> N;
+	vector<long> vecX;
+	vector<long> vecY;
+	for (int i = 0; i < N; i++) {
+		long x = 0, y = 0;
+		cin >> x >> y;
+		vecX.push_back(x);
+		vecY.push_back(y);
+	}
+
+	long sum = 0;
+	for (int i = 0; i < N - 1; i++) {
+		sum += vecX[i] * vecY[i + 1] - vecX[i + 1] * vecY[i];
+	}
+	sum += vecX[N - 1] * vecY[0] - vecX[0] * vecY[N - 1];
+	double answer = (double)llabs(sum) / 2.0;
+
+	cout << fixed;
+	cout.precision(1);
+	cout << answer;
+	return 0;
+}

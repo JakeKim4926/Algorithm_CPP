@@ -55,4 +55,5 @@ public:
 	int		solution_251127_01();															// [G5] No.15591 MooTube (Silver)
 	int		solution_251128_01();															// [G4] No.1976 여행 가자
 	int		solution_251129_01();															// [G5] No.18428 감시 피하기
+	int		solution_251201_01();															// [G5] No.2166 다각형의 면적
 };
