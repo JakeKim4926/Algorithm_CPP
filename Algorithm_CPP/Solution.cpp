@@ -1759,3 +1759,44 @@ int Solution::solution_251201_01()
 	cout << answer;
 	return 0;
 }
+
+int Solution::solution_251202_01()
+{
+	string S, T;
+	cin >> S >> T;
+
+	queue<string> search;
+	search.push(T);
+
+	while (!search.empty()) {
+		string temp = search.front();
+		search.pop();
+
+		if (temp == S) {
+			cout << 1;
+			return 0;
+		}
+
+		if (temp.empty() || temp.length() < S.length() || temp.length() == 1)
+			continue;
+
+		if (temp.at(0) == 'B') {
+			string next;
+			for (int i = 1; i < temp.length(); i++) {
+				next.push_back(temp.at(temp.length() - i));
+			}
+			search.push(next);
+		}
+
+		if (temp.length() == 1 && temp == "A")
+			search.push("A");
+
+		if (temp.at(temp.length() - 1) == 'A') {
+			search.push(temp.substr(0, temp.length() - 1));
+		}
+	}
+
+	cout << 0;
+
+	return 0;
+}
