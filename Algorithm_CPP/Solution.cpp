@@ -1800,3 +1800,33 @@ int Solution::solution_251202_01()
 
 	return 0;
 }
+
+int Solution::solution_251203_01()
+{
+	int T = 0;
+	cin >> T;
+	for (int t = 0; t < T; t++) {
+		int N = 0;
+		cin >> N;
+		vector<vector<int>> stickers(2, vector<int>(N + 1, 0));
+		vector<vector<int>> dp(2, vector<int>(N + 1, 0));
+
+		for (int i = 0; i < 2; i++) {
+			vector<int> temp(N + 1);
+			for (int j = 1; j <= N; j++)
+				cin >> temp[j];
+			stickers[i] = temp;
+		}
+		dp[0][1] = stickers[0][1];
+		dp[1][1] = stickers[1][1];
+
+		for (int i = 2; i <= N; i++) {
+			dp[0][i] = max(dp[1][i - 1], dp[1][i - 2]) + stickers[0][i];
+			dp[1][i] = max(dp[0][i - 1], dp[0][i - 2]) + stickers[1][i];
+		}
+
+		cout << max(dp[0][N], dp[1][N]) << "\n";
+	}
+
+	return 0;
+}

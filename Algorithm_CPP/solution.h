@@ -57,4 +57,5 @@ public:
 	int		solution_251129_01();															// [G5] No.18428 감시 피하기
 	int		solution_251201_01();															// [G5] No.2166 다각형의 면적
 	int		solution_251202_01();															// [G5] No.12919 A와 B 2
+	int		solution_251203_01();															// [S1] No.9465 스티커
 };
