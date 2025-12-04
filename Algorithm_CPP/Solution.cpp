@@ -1830,3 +1830,99 @@ int Solution::solution_251203_01()
 
 	return 0;
 }
+
+class Robot_251204 {
+public:
+	int row;
+	int col;
+	int direction;
+	Robot_251204(int r, int c, int d) {
+		row = r;
+		col = c;
+		direction = d;
+	}
+};
+
+
+int Solution::solution_251204_01()
+{
+	int N = 0, M = 0, startRow, startCol, startDirection = 0;
+	cin >> N >> M >> startRow >> startCol >> startDirection;
+
+	vector<vector<int>> room;
+
+	for (int i = 0; i < N; i++) {
+		vector<int> temp(M);
+		for (int j = 0; j < M; j++) {
+			cin >> temp[j];
+		}
+		room.push_back(temp);
+	}
+
+	int dr[] = { -1,0,1,0 };
+	int dc[] = { 0,1,0,-1 };
+
+	queue<Robot_251204> search;
+	search.push(Robot_251204(startRow, startCol, startDirection));
+	while (!search.empty()) {
+		Robot_251204 temp = search.front();
+		search.pop();
+
+		if (!room[temp.row][temp.col])
+			room[temp.row][temp.col] = 2;
+
+		bool isClean = true;
+		for (int i = 0; i < 4; i++) {
+			int newRow = dr[i] + temp.row;
+			int newCol = dc[i] + temp.col;
+
+			if (newRow < 0 || newCol < 0 || newRow >= N || newCol >= M)
+				continue;
+
+			if (!room[newRow][newCol]) {
+				isClean = false;
+				break;
+			}
+		}
+
+		if (isClean) {
+			int backDirection = (temp.direction + 2) % 4;
+			int backRow = dr[backDirection] + temp.row;
+			int backCol = dc[backDirection] + temp.col;
+
+			if (backRow < 0 || backCol < 0 || backRow >= N || backCol >= M || room[backRow][backCol] == 1)
+				break;
+
+			search.push(Robot_251204(backRow, backCol, temp.direction));
+		}
+		else {
+			for (int i = 1; i <= 4; i++) {
+				int rotateDirection = temp.direction - i;
+				if (rotateDirection < 0)
+					rotateDirection += 4;
+
+				int nextRow = dr[rotateDirection] + temp.row;
+				int nextCol = dc[rotateDirection] + temp.col;
+
+				if (nextRow < 0 || nextCol < 0 || nextRow >= N || nextCol >= M || room[nextRow][nextCol])
+					continue;
+
+				search.push(Robot_251204(nextRow, nextCol, rotateDirection));
+				break;
+			}
+
+		}
+	}
+
+	int count = 0;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (room[i][j] == 2)
+				count++;
+		}
+	}
+
+	cout << count;
+
+	return 0;
+}
