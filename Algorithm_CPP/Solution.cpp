@@ -1926,3 +1926,60 @@ int Solution::solution_251204_01()
 
 	return 0;
 }
+
+int Solution::solution_251205_01()
+{
+	int T = 0;
+	cin >> T;
+
+	for (int t = 0; t < T; t++) {
+		string W;
+		int K = 0;
+		cin >> W >> K;
+
+		vector<vector<int>> vecIndex(150);
+		int chCounts[150] = { 0, };
+		for (int i = 0; i < W.length(); i++) {
+			chCounts[W.at(i)]++;
+			vecIndex[W.at(i)].push_back(i);
+		}
+
+		vector<int> gameCh;
+		for (int i = 97; i <= 122; i++) {
+			if (chCounts[i] >= K)
+				gameCh.push_back(i);
+		}
+
+		if (gameCh.empty()) {
+			cout << -1 << "\n";
+			continue;
+		}
+
+		if (K == 1) {
+			cout << 1 << " " << 1 << "\n";
+			continue;
+		}
+
+		int maxD = 0;
+		int minD = 10000;
+		for (int i = 0; i < gameCh.size(); i++) {
+			int idx = gameCh[i];
+			int left = 0;
+			int right = 1;
+			while (right < vecIndex[idx].size()) {
+				if (right - left + 1 < K)
+					right++;
+				else if (right - left + 1 == K) {
+					int distance = vecIndex[idx][right] - vecIndex[idx][left] + 1;
+					maxD = max(maxD, distance);
+					minD = min(minD, distance);
+					left++;
+				}
+			}
+		}
+
+		cout << minD << " " << maxD << "\n";
+	}
+
+	return 0;
+}
