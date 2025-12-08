@@ -69,3 +69,4 @@ coverage/
 *.vsp
 *.vspx
 *.sap
+/Algorithm_CPP/main.cpp

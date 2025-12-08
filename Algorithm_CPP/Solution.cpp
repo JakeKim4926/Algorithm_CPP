@@ -1983,3 +1983,56 @@ int Solution::solution_251205_01()
 
 	return 0;
 }
+
+int result_251208;
+int N_251208;
+vector<int> numbers_251208;
+vector<int> space_251208;
+vector<bool> visit_251208;
+set<int> resultSet_251208;
+
+void pickNumbers(int index) {
+	if (index > N_251208)
+		return;
+
+	if (visit_251208[index])
+		return;
+
+	visit_251208[index] = true;
+	space_251208.push_back(index);
+
+	int next = numbers_251208[index];
+
+	if (!visit_251208[next]) {
+		pickNumbers(next);
+	} else {
+		auto it = find(space_251208.begin(), space_251208.end(), next);
+		if (it != space_251208.end()) {
+			for (; it != space_251208.end(); it++)
+				resultSet_251208.insert(*it);
+		}
+	}
+}
+
+int Solution::solution_251208_01()
+{
+	N_251208 = 0;
+	result_251208 = 0;
+	cin >> N_251208;
+	numbers_251208.resize(N_251208 + 1, 0);
+	for (int i = 1; i <= N_251208; i++)
+		cin >> numbers_251208[i];
+
+	for (int i = 1; i <= N_251208; i++) {
+		visit_251208.resize(N_251208 + 1, false);
+		space_251208.clear();
+		pickNumbers(i);
+	}
+
+	cout << resultSet_251208.size() << "\n";
+	for (int num : resultSet_251208)
+		cout << num << "\n";
+
+
+	return 0;
+}
