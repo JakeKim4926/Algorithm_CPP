@@ -62,5 +62,4 @@ public:
 	int		solution_251204_01();															// [G5] No.14503 로봇 청소기
 	int		solution_251205_01();															// [G5] No.20437 문자열 게임 2
 	int		solution_251208_01();															// [G5] No.2668 숫자고르기
-	int		solution_251209_01();															// [G5] No.14719 빗물
 };
