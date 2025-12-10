@@ -2075,3 +2075,67 @@ int Solution::solution_251209_01()
 
 	return 0;
 }
+
+class Way {
+public:
+	int next;
+	int cow;
+	Way() { next = 0; cow = 0; };
+	Way(int n, int c) {
+		next = n;
+		cow = c;
+	}
+
+	bool operator>(const Way& other) const {
+		return cow > other.cow;
+	}
+};
+
+int Solution::solution_251210_01()
+{
+	int N = 0, M = 0;
+	cin >> N >> M;
+	vector<vector<Way>> ways(N + 1);
+	for (int i = 0; i < M; i++) {
+		int A = 0, B = 0, C = 0;
+		cin >> A >> B >> C;
+		ways[A].push_back(Way(B, C));
+		ways[B].push_back(Way(A, C));
+	}
+
+	vector<int> dijkstra(N + 1, INT32_MAX);
+	vector<bool> visit(N + 1, false);
+
+	priority_queue<Way, vector<Way>, greater<Way>> pq;
+
+	dijkstra[1] = 0;
+	pq.push(Way(1, 0));
+	while (!pq.empty()) {
+		int index = pq.top().next;
+		int cost = pq.top().cow;
+		pq.pop();
+
+		if (visit[index])
+			continue;
+		visit[index] = true;
+
+		if (index == N)
+			break;
+
+		for (int j = 0; j < (int)ways[index].size(); j++) {
+			int next = ways[index][j].next;
+			if (visit[next])
+				continue;
+
+			int cow = ways[index][j].cow;
+			if (dijkstra[next] > cost + cow) {
+				dijkstra[next] = cost + cow;
+				pq.push(Way(next, dijkstra[next]));
+			}
+		}
+	}
+
+	cout << dijkstra[N];
+
+	return 0;
+}
