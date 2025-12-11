@@ -2139,3 +2139,83 @@ int Solution::solution_251210_01()
 
 	return 0;
 }
+
+int getDiff_251211(int x, int y, const vector<vector<bool>>& digit, int K)
+{
+	int diff = 0;
+
+	for (int pos = 0; pos < K; ++pos) {
+		int dx = x % 10;
+		int dy = y % 10;
+		x /= 10;
+		y /= 10;
+
+		for (int s = 0; s < 7; ++s) {
+			if (digit[dx][s] != digit[dy][s]) {
+				diff++;
+			}
+		}
+	}
+
+	return diff;
+}
+
+int Solution::solution_251211_01()
+{
+	int N = 0, K = 0, P = 0, X = 0;
+
+	cin >> N >> K >> P >> X;
+
+	vector<vector<bool>> digit(10, vector<bool>(7, true));
+
+	//  
+	//0 1 2
+	//  3
+	//4 5 6
+	// 
+	digit[0][3] = false;
+
+	digit[1][0] = false;
+	digit[1][1] = false;
+	digit[1][3] = false;
+	digit[1][4] = false;
+	digit[1][5] = false;
+
+	digit[2][0] = false;
+	digit[2][6] = false;
+
+	digit[3][0] = false;
+	digit[3][4] = false;
+
+	digit[4][1] = false;
+	digit[4][4] = false;
+	digit[4][5] = false;
+
+	digit[5][2] = false;
+	digit[5][4] = false;
+
+	digit[6][2] = false;
+
+	digit[7][0] = false;
+	digit[7][3] = false;
+	digit[7][4] = false;
+	digit[7][5] = false;
+
+	digit[9][4] = false;
+
+	int result = 0;
+
+	for (int floor = 1; floor <= N; ++floor) {
+		if (floor == X)
+			continue;
+
+		int diff = getDiff_251211(X, floor, digit, K);
+
+		if (diff >= 1 && diff <= P) {
+			result++;
+		}
+	}
+	cout << result;
+
+	return 0;
+}

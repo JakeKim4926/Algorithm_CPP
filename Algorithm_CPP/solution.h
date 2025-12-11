@@ -64,4 +64,5 @@ public:
 	int		solution_251208_01();															// [G5] No.2668 숫자고르기
 	int		solution_251209_01();															// [G5] No.14719 빗물
 	int		solution_251210_01();															// [G5] No.5972 택배 배송
+	int		solution_251211_01();															// [G5] No.22251 빌런 호석
 };
