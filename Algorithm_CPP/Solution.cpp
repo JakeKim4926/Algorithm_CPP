@@ -2219,3 +2219,74 @@ int Solution::solution_251211_01()
 
 	return 0;
 }
+
+void makeZero(int index, int before, int next, string result, vector<string>& zeros, int N) {
+	if (index > N) {
+		string line = result;
+		line.erase(remove(line.begin(), line.end(), ' '), line.end());
+
+		vector<char> oper;
+		vector<int> nums;
+
+		string numStr;
+		for (int i = 0; i < line.length(); i++) {
+			if (line.at(i) == '+' || line.at(i) == '-') {
+				nums.push_back(stoi(numStr));
+				numStr.clear();
+				oper.push_back(line.at(i));
+			} else {
+				numStr.push_back(line.at(i));
+			}
+		}
+
+		if (oper.empty())
+			return;
+
+		if (!numStr.empty())
+			nums.push_back(stoi(numStr));
+
+		int sum = nums.at(0);
+		for (int i = 0; i < oper.size(); i++) {
+			if (oper[i] == '+')
+				sum += nums.at(i + 1);
+			else
+				sum -= nums.at(i + 1);
+		}
+
+		if (sum == 0)
+			zeros.push_back(result);
+
+		return;
+	}
+
+	int nextIndex = index + 1;
+	char indexCh = index + '0';
+
+	makeZero(nextIndex, index, nextIndex, result + '+' + indexCh, zeros, N);
+	makeZero(nextIndex, index, nextIndex, result + '-' + indexCh, zeros, N);
+	makeZero(nextIndex, next, before * 10 + index, result + ' ' + indexCh, zeros, N);
+}
+
+int Solution::solution_251212_01()
+{
+	int T = 0;
+	cin >> T;
+	for (int t = 0; t < T; t++) {
+		int N = 0;
+		cin >> N;
+
+		vector<string> zeros;
+		string result;
+		result.push_back('0' + 1);
+
+		makeZero(2, 1, 2, result, zeros, N);
+		sort(zeros.begin(), zeros.end());
+
+		for (string str : zeros) {
+			cout << str << "\n";
+		}
+		cout << "\n";
+	}
+
+	return 0;
+}

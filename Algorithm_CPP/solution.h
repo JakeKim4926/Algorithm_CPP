@@ -65,4 +65,5 @@ public:
 	int		solution_251209_01();															// [G5] No.14719 빗물
 	int		solution_251210_01();															// [G5] No.5972 택배 배송
 	int		solution_251211_01();															// [G5] No.22251 빌런 호석
+	int		solution_251212_01();															// [G5] No.7490 0 만들기
 };
