@@ -1732,6 +1732,8 @@ int Solution::solution_251129_01() {
 			}
 		}
 	}
+
+	return 0;
 }
 
 int Solution::solution_251201_01()
@@ -2286,6 +2288,96 @@ int Solution::solution_251212_01()
 			cout << str << "\n";
 		}
 		cout << "\n";
+	}
+
+	return 0;
+}
+
+class Zelda {
+public:
+	int next;
+	int luffy;
+	Zelda() {}
+	Zelda(int n, int l) {
+		next = n;
+		luffy = l;
+	}
+
+	bool operator> (const Zelda& other) const {
+		return luffy > other.luffy;
+	}
+};
+
+int Solution::solution_251213_01() {
+	int N = 0;
+	int testIndex = 1;
+
+	int dr[] = { 0,0,1,-1 };
+	int dc[] = { 1,-1,0,0 };
+
+	while (N >= 0) {
+		cin >> N;
+		if (N == 0)
+			return 0;
+
+		vector<int> luffy(N * N);
+		for (int i = 0; i < N * N; i++) {
+			cin >> luffy[i];
+		}
+
+		vector<vector<Zelda>> cave(N * N);
+
+		int caveIndex = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				for (int d = 0; d < 4; d++) {
+					int nextRow = dr[d] + i;
+					int nextCol = dc[d] + j;
+
+					if (nextRow < 0 || nextCol < 0 || nextRow >= N || nextCol >= N)
+						continue;
+
+					if (d == 0)   cave[caveIndex].push_back(Zelda(caveIndex + 1, luffy[caveIndex + 1]));
+					if (d == 1)   cave[caveIndex].push_back(Zelda(caveIndex - 1, luffy[caveIndex - 1]));
+					if (d == 2)   cave[caveIndex].push_back(Zelda(caveIndex + N, luffy[caveIndex + N]));
+					if (d == 3)   cave[caveIndex].push_back(Zelda(caveIndex - N, luffy[caveIndex - N]));
+				}
+				caveIndex++;
+			}
+		}
+
+		vector<int> daijk(N * N, INT32_MAX);
+		vector<bool> visit(N * N, false);
+		priority_queue<Zelda, vector<Zelda>, greater<Zelda>> pq;
+
+		daijk[0] = luffy[0];
+		pq.push(Zelda(0, luffy[0]));
+		while (!pq.empty()) {
+			Zelda temp = pq.top();
+			pq.pop();
+
+			int now = temp.next;
+			int nowLuffy = temp.luffy;
+
+			if (visit[now])
+				continue;
+
+			visit[now] = true;
+
+			for (int i = 0; i < cave[now].size(); i++) {
+				int nextNum = cave[now][i].next;
+				int nextLuffy = cave[now][i].luffy;
+				if (visit[nextNum])
+					continue;
+
+				if (daijk[nextNum] > daijk[now] + nextLuffy) {
+					daijk[nextNum] = daijk[now] + nextLuffy;
+					pq.push(Zelda(nextNum, daijk[nextNum]));
+				}
+			}
+
+		}
+		cout << "Problem " << testIndex++ << ": " << daijk[N * N - 1] << "\n";
 	}
 
 	return 0;
