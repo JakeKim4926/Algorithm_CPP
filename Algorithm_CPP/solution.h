@@ -67,4 +67,5 @@ public:
 	int		solution_251211_01();															// [G5] No.22251 빌런 호석
 	int		solution_251212_01();															// [G5] No.7490 0 만들기
 	int		solution_251213_01();															// [G4] No.4485 녹색 옷 입은 애가 젤다지?
+	int		solution_251214_01();															// [G4] No.16234 인구 이동
 };

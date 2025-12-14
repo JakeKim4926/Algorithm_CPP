@@ -2382,3 +2382,90 @@ int Solution::solution_251213_01() {
 
 	return 0;
 }
+
+int Solution::solution_251214_01() {
+	int N = 0, L = 0, R = 0;
+	cin >> N >> L >> R;
+
+	vector<int> world(N * N);
+	for (int i = 0; i < N * N; i++) {
+		cin >> world[i];
+	}
+	int dr[] = { 0,0,1,-1 };
+	int dc[] = { 1,-1,0,0 };
+
+	bool isOpen = true;
+	int day = 0;
+	while (isOpen) {
+		int countryIndex = 0;
+		vector<vector<pair<int, int>>> vecCountry(N * N);
+		isOpen = false;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				for (int d = 0; d < 4; d++) {
+					int nextRow = dr[d] + i;
+					int nextCol = dc[d] + j;
+
+					if (nextRow < 0 || nextCol < 0 || nextRow >= N || nextCol >= N)
+						continue;
+
+					if (d == 0)   vecCountry[countryIndex].push_back(pair<int, int>(countryIndex + 1, abs(world[countryIndex] - world[countryIndex + 1])));
+					if (d == 1)   vecCountry[countryIndex].push_back(pair<int, int>(countryIndex - 1, abs(world[countryIndex] - world[countryIndex - 1])));
+					if (d == 2)   vecCountry[countryIndex].push_back(pair<int, int>(countryIndex + N, abs(world[countryIndex] - world[countryIndex + N])));
+					if (d == 3)   vecCountry[countryIndex].push_back(pair<int, int>(countryIndex - N, abs(world[countryIndex] - world[countryIndex - N])));
+
+					int diff = vecCountry[countryIndex].back().second;
+					if (L <= diff && diff <= R)
+						isOpen = true;
+				}
+				countryIndex++;
+			}
+		}
+
+		if (!isOpen)
+			break;
+
+		queue<int> bfs;
+		vector<bool> visit(N * N, false);
+		for (int i = 0; i < N * N; i++) {
+			if (!visit[i]) {
+				bfs.push(i);
+				vector<int> allience;
+				while (!bfs.empty()) {
+					int now = bfs.front();
+					bfs.pop();
+
+					if (visit[now])
+						continue;
+
+					visit[now] = true;
+					allience.push_back(now);
+					for (int j = 0; j < vecCountry[now].size(); j++) {
+						int next = vecCountry[now][j].first;
+						if (visit[next])
+							continue;
+
+						int people = vecCountry[now][j].second;
+						if (L <= people && people <= R)
+							bfs.push(next);
+					}
+				}
+
+				int sum = 0;
+				for (int country : allience)
+					sum += world[country];
+				if (sum != 0) {
+					int average = sum / allience.size();
+					for (int country : allience)
+						world[country] = average;
+				}
+			}
+		}
+
+		day++;
+	}
+
+	cout << day;
+
+	return 0;
+}
