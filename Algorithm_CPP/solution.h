@@ -68,4 +68,5 @@ public:
 	int		solution_251212_01();															// [G5] No.7490 0 만들기
 	int		solution_251213_01();															// [G4] No.4485 녹색 옷 입은 애가 젤다지?
 	int		solution_251214_01();															// [G4] No.16234 인구 이동
+	int		solution_251215_01();															// [G4] No.1027 고층 건물
 };

@@ -2469,3 +2469,62 @@ int Solution::solution_251214_01() {
 
 	return 0;
 }
+
+int Solution::solution_251215_01()
+{
+	int N = 0;
+	cin >> N;
+	vector<long long> buildings(N);
+
+	for (int i = 0; i < N; i++)
+		cin >> buildings[i];
+
+	long long maxSight = 0;
+
+	for (int i = 0; i < N; i++) {
+		int left = i - 1;
+		int right = i + 1;
+
+		long long leftMax = 0;
+		long long rightMax = 0;
+		long long lineLeft = 1;
+		long long lineRight = 1;
+
+		bool hasLeft = false;
+		bool hasRight = false;
+
+		long long sight = 0;
+
+		while (left >= 0) {
+			long long num = buildings[left] - buildings[i];
+			long long den = (long long)(i - left);
+
+			if (!hasLeft || num * lineLeft > leftMax * den) {
+				sight++;
+				leftMax = num;
+				lineLeft = den;
+				hasLeft = true;
+			}
+			left--;
+		}
+
+		while (right < N) {
+			long long num = buildings[right] - buildings[i];
+			long long den = (long long)(right - i);
+
+			if (!hasRight || num * lineRight > rightMax * den) {
+				sight++;
+				rightMax = num;
+				lineRight = den;
+				hasRight = true;
+			}
+			right++;
+		}
+
+		maxSight = max(maxSight, sight);
+	}
+
+	cout << maxSight;
+
+	return 0;
+}
