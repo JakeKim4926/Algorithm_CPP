@@ -2528,3 +2528,64 @@ int Solution::solution_251215_01()
 
 	return 0;
 }
+
+char getLight(char l) {
+	if (l == '0')
+		return '1';
+
+	return '0';
+}
+
+void pressSwitch_251216(string& light, int index, int N) {
+	if (index == 0) {
+		light.at(0) = getLight(light.at(0));
+		light.at(1) = getLight(light.at(1));
+	} else if (index == N - 1) {
+		light.at(N - 2) = getLight(light.at(N - 2));
+		light.at(N - 1) = getLight(light.at(N - 1));
+	} else {
+		light.at(index - 1) = getLight(light.at(index - 1));
+		light.at(index) = getLight(light.at(index));
+		light.at(index + 1) = getLight(light.at(index + 1));
+	}
+}
+
+int simulate_251216(string light, string output, int N, bool pressFirst) {
+	int count = 0;
+
+	if (pressFirst) {
+		pressSwitch_251216(light, 0, N);
+		count++;
+	}
+
+	for (int index = 1; index < N; index++) {
+		if (light.at(index - 1) != output.at(index - 1)) {
+			pressSwitch_251216(light, index, N);
+			count++;
+		}
+	}
+
+	if (light == output)
+		return count;
+
+	return 1000000;
+}
+
+int Solution::solution_251216_01()
+{
+	int N = 0;
+	cin >> N;
+	string input, output;
+	cin >> input >> output;
+
+	int a = simulate_251216(input, output, N, false);
+	int b = simulate_251216(input, output, N, true);
+
+	int result = min(a, b);
+
+	if (result == 1000000)
+		result = -1;
+	cout << result;
+
+	return 0;
+}
