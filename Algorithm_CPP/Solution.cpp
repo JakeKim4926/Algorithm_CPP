@@ -2589,3 +2589,26 @@ int Solution::solution_251216_01()
 
 	return 0;
 }
+
+int Solution::solution_251217_01()
+{
+	int N = 0;
+	cin >> N;
+
+	vector<int> kids(N);
+	for (int i = 0; i < N; i++)
+		cin >> kids[i];
+
+	vector<int> lis;
+	for (int i = 0; i < N; i++) {
+		auto it = lower_bound(lis.begin(), lis.end(), kids[i]);
+		if (it == lis.end())
+			lis.push_back(kids[i]);
+		else
+			*it = kids[i];
+	}
+
+	cout << N - lis.size();
+
+	return 0;
+}

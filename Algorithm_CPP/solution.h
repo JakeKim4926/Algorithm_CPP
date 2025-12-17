@@ -70,4 +70,5 @@ public:
 	int		solution_251214_01();															// [G4] No.16234 인구 이동
 	int		solution_251215_01();															// [G4] No.1027 고층 건물
 	int		solution_251216_01();															// [G4] No.2138 전구와 스위치
+	int		solution_251217_01();															// [G4] No.2631 줄 세우기
 };
