@@ -71,4 +71,5 @@ public:
 	int		solution_251215_01();															// [G4] No.1027 고층 건물
 	int		solution_251216_01();															// [G4] No.2138 전구와 스위치
 	int		solution_251217_01();															// [G4] No.2631 줄 세우기
+	int		solution_251218_01();															// [G2] No.12015 가장 긴 증가하는 부분 수열2
 };
