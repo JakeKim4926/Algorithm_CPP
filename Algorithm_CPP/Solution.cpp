@@ -2634,3 +2634,35 @@ int Solution::solution_251218_01()
 
 	return 0;
 }
+
+int Solution::solution_251219_01()
+{
+	int T = 0;
+	cin >> T;
+	for (int t = 1; t <= T; t++) {
+		int N = 0, K = 0;
+
+		cin >> N >> K;
+		vector<int> stock(N);
+
+		for (int i = 0; i < N; i++)
+			cin >> stock[i];
+
+		vector<int> lis;
+		for (int i = 0; i < N; i++) {
+			auto it = lower_bound(lis.begin(), lis.end(), stock[i]);
+			if (it == lis.end())
+				lis.push_back(stock[i]);
+			else
+				*it = stock[i];
+		}
+
+		int result = 0;
+		if (lis.size() >= K)
+			result = 1;
+
+		cout << "Case #" << t << "\n" << result << "\n";
+	}
+
+	return 0;
+}
