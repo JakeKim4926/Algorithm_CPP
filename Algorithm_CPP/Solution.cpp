@@ -2701,3 +2701,26 @@ int Solution::solution_251220_01() {
 
 	return 0;
 }
+
+int Solution::solution_251222_01()
+{
+	int N = 0;
+	cin >> N;
+
+	vector<int> books(N);
+	for (int i = 0; i < N; i++)
+		cin >> books[i];
+
+	vector<int> lis;
+	for (int i = 0; i < N; i++) {
+		auto it = lower_bound(lis.begin(), lis.end(), books[i]);
+		if (it == lis.end())
+			lis.push_back(books[i]);
+		else
+			*it = books[i];
+	}
+
+	cout << N - lis.size();
+
+	return 0;
+}

@@ -74,4 +74,5 @@ public:
 	int		solution_251218_01();															// [G2] No.12015 가장 긴 증가하는 부분 수열2
 	int		solution_251219_01();															// [G2] No.12014 주식
 	int		solution_251220_01();															// [P5] No.13711 LCS 4
+	int		solution_251222_01();															// [G2] No.1818 책정리
 };
