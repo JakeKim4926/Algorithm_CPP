@@ -2724,3 +2724,41 @@ int Solution::solution_251222_01()
 
 	return 0;
 }
+
+int Solution::solution_251223_01()
+{
+	int N = 0;
+	cin >> N;
+	stack<int> skyline;
+
+	for (int i = 0; i < N; i++) {
+		int x = 0, y = 0;
+		cin >> x >> y;
+		skyline.push(y);
+	}
+
+	int result = 0;
+	stack<int> st;
+
+	while (!skyline.empty()) {
+		int cur = skyline.top();
+		skyline.pop();
+
+		while (!st.empty() && st.top() > cur) {
+			result++;
+			st.pop();
+		}
+		if (cur > 0 && (st.empty() || st.top() < cur)) {
+			st.push(cur);
+		}
+	}
+
+	while (!st.empty()) {
+		result++;
+		st.pop();
+	}
+
+	cout << result;
+
+	return 0;
+}

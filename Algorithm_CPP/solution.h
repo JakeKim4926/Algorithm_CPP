@@ -6,6 +6,7 @@
 #include <queue>
 #include <unordered_map>
 #include <set>
+#include <stack>
 
 using namespace std;
 
@@ -75,4 +76,5 @@ public:
 	int		solution_251219_01();															// [G2] No.12014 주식
 	int		solution_251220_01();															// [P5] No.13711 LCS 4
 	int		solution_251222_01();															// [G2] No.1818 책정리
+	int		solution_251223_01();															// [G4] No.1863 스카이라인 쉬운거
 };
