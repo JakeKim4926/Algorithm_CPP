@@ -2762,3 +2762,25 @@ int Solution::solution_251223_01()
 
 	return 0;
 }
+
+int Solution::solution_251225_01() {
+	long N = 0;
+	cin >> N;
+
+	vector<long> seq(N);
+	for (int i = 0; i < N; i++)
+		cin >> seq[i];
+
+	vector<long> lis;
+	for (int i = 0; i < N; i++) {
+		auto it = lower_bound(lis.begin(), lis.end(), seq[i]);
+		if (it == lis.end())
+			lis.push_back(seq[i]);
+		else
+			*it = seq[i];
+	}
+
+	cout << lis.size();
+
+	return 0;
+}
