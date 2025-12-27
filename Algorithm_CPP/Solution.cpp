@@ -2784,3 +2784,36 @@ int Solution::solution_251225_01() {
 
 	return 0;
 }
+
+int Solution::solution_251227_01()
+{
+	int T = 0;
+	cin >> T;
+
+	for (int t = 1; t <= T; t++) {
+		int N = 0;
+		cin >> N;
+
+		vector<int> seq(N);
+		for (int i = 0; i < N; i++) cin >> seq[i];
+
+		long long result = 0;
+
+		for (int l = 0; l < N; l++) {
+			vector<int> lis;
+			lis.reserve(N);
+
+			for (int r = l; r < N; r++) {
+				auto it = lower_bound(lis.begin(), lis.end(), seq[r]);
+				if (it == lis.end()) lis.push_back(seq[r]);
+				else *it = seq[r];
+
+				result += (long long)lis.size();
+			}
+		}
+
+		cout << "Case #" << t << ": " << result << "\n";
+	}
+
+	return 0;
+}

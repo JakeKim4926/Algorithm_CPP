@@ -78,4 +78,5 @@ public:
 	int		solution_251222_01();															// [G2] No.1818 책정리
 	int		solution_251223_01();															// [G4] No.1863 스카이라인 쉬운거
 	int		solution_251225_01();															// [G2] No.12738 가장 긴 증가하는 부분 수열3
+	int		solution_251227_01();															// [G1] No.9702 LIS
 };
