@@ -2817,3 +2817,89 @@ int Solution::solution_251227_01()
 
 	return 0;
 }
+
+bool compare_260101(const pair<string, int>& a, const pair<string, int>& b) {
+	return a.first < b.first;
+}
+
+int Solution::solution_260101_01() {
+	int N;
+	cin >> N;
+
+	vector<string> words(N);
+	vector<pair<string, int>> vecStr(N);
+
+	for (int i = 0; i < N; i++) {
+		cin >> words[i];
+		vecStr[i] = { words[i], i };
+	}
+
+	sort(vecStr.begin(), vecStr.end(), compare_260101);
+
+	int bestLen = 0;
+	for (int i = 0; i < N - 1; i++) {
+		const string& s1 = vecStr[i].first;
+		const string& s2 = vecStr[i + 1].first;
+
+		int k = 0;
+		while (k < (int)s1.size()
+			&& k < (int)s2.size()
+			&& s1.at(k) == s2.at(k)) {
+			k++;
+		}
+		if (bestLen < k)
+			bestLen = k;
+	}
+
+	if (bestLen == 0) {
+		cout << words[0] << "\n" << words[1] << "\n";
+		return 0;
+	}
+
+	int bestA = INT32_MAX, bestB = INT32_MAX;
+	int i = 0;
+	while (i < N) {
+		const string& s = vecStr[i].first;
+
+		if ((int)s.size() < bestLen) {
+			i++;
+			continue;
+		}
+
+		string pref = s.substr(0, bestLen);
+
+		int min1 = 1e9, min2 = 1e9;
+		int j = i;
+
+		while (j < N) {
+			const string& t = vecStr[j].first;
+
+			if ((int)t.size() < bestLen)
+				break;
+			if (t.compare(0, bestLen, pref) != 0)
+				break;
+
+			int idx = vecStr[j].second;
+			if (idx < min1) { min2 = min1; min1 = idx; } else if (idx < min2) { min2 = idx; }
+
+			j++;
+		}
+
+		if (min2 != (int)1e9) {
+			int a = min1, b = min2;
+			if (a > b) swap(a, b);
+
+			if (a < bestA || (a == bestA && b < bestB)) {
+				bestA = a;
+				bestB = b;
+			}
+		}
+
+		i = j;
+	}
+
+	cout << words[bestA] << "\n";
+	cout << words[bestB] << "\n";
+
+	return 0;
+}
