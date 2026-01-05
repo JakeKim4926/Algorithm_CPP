@@ -2903,3 +2903,87 @@ int Solution::solution_260101_01() {
 
 	return 0;
 }
+
+int Solution::solution_260105_01() {
+	int N = 0;
+	cin >> N;
+	vector<string> area(N);
+	for (int i = 0; i < N; i++) {
+		cin >> area[i];
+	}
+
+	vector<string> areaGr = area;
+	for (string& str : areaGr) {
+		for (int i = 0; i < str.length(); i++) {
+			if (str[i] == 'R')
+				str[i] = 'G';
+		}
+	}
+
+	vector<vector<bool>> visit(N, vector<bool>(N, false));
+	vector<vector<bool>> visitGr(N, vector<bool>(N, false));
+	queue<pair<int, int>> bfs;
+	int grCount = 0;
+	int bgrCount = 0;
+
+	int dr[] = { 0,0,1,-1 };
+	int dc[] = { 1,-1,0,0 };
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (!visit[i][j]) {
+				bfs.push({ i, j });
+				visit[i][j] = true;
+				char color = area[i][j];
+
+				while (!bfs.empty()) {
+					auto it = bfs.front();
+					bfs.pop();
+					for (int d = 0; d < 4; d++) {
+						int row = it.first + dr[d];
+						int col = it.second + dc[d];
+
+						if (row < 0 || col < 0 || row >= N || col >= N)
+							continue;
+
+						if (visit[row][col] || area[row][col] != color)
+							continue;
+
+						visit[row][col] = true;
+						bfs.push({ row,col });
+					}
+				}
+				bgrCount++;
+			}
+
+			if (!visitGr[i][j]) {
+				bfs.push({ i, j });
+				visitGr[i][j] = true;
+				char color = areaGr[i][j];
+
+				while (!bfs.empty()) {
+					auto it = bfs.front();
+					bfs.pop();
+					visitGr[it.first][it.second] = true;
+					for (int d = 0; d < 4; d++) {
+						int row = it.first + dr[d];
+						int col = it.second + dc[d];
+
+						if (row < 0 || col < 0 || row >= N || col >= N)
+							continue;
+
+						if (visitGr[row][col] || areaGr[row][col] != color)
+							continue;
+
+						visitGr[row][col] = true;
+						bfs.push({ row,col });
+					}
+				}
+				grCount++;
+			}
+		}
+	}
+
+	cout << bgrCount << " " << grCount << "\n";
+
+	return 0;
+}
