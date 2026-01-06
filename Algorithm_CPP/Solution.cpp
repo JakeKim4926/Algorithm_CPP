@@ -2987,3 +2987,56 @@ int Solution::solution_260105_01() {
 
 	return 0;
 }
+
+int dr_260106[] = { 0,0,1,-1,1,1,-1,-1 };
+int dc_260106[] = { 1,-1,0,0,1,-1,1,-1 };
+
+void peak_260106(int row, int col, vector<vector<bool>>& visit, vector<vector<int>>& farm, bool& isPeak) {
+	visit[row][col] = true;
+	int val = farm[row][col];
+	for (int i = 0; i < 8; i++) {
+		int newRow = row + dr_260106[i];
+		int newCol = col + dc_260106[i];
+
+		if (newRow < 0 || newCol < 0 || newRow >= farm.size() || newCol >= farm[0].size())
+			continue;
+
+		if (val == farm[newRow][newCol]) {
+			if (!visit[newRow][newCol])
+				peak_260106(newRow, newCol, visit, farm, isPeak);
+		}
+
+		if (val < farm[newRow][newCol])
+			isPeak = false;
+	}
+}
+
+int Solution::solution_260106_01() {
+	int N = 0, M = 0;
+	cin >> N >> M;
+
+	vector<vector<int>> farm(N, vector<int>(M));
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cin >> farm[i][j];
+		}
+	}
+
+	vector<vector<bool>> visit(N, vector<bool>(M, false));
+
+	int peakCount = 0;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (!visit[i][j]) {
+				bool isPeak = true;
+				peak_260106(i, j, visit, farm, isPeak);
+				if (isPeak)
+					peakCount++;
+			}
+		}
+	}
+
+	cout << peakCount << "\n";
+
+	return 0;
+}

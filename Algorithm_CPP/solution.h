@@ -81,4 +81,5 @@ public:
 	int		solution_251227_01();															// [G1] No.9702 LIS
 	int		solution_260101_01();															// [G4] No.2179 비슷한 단어
 	int		solution_260105_01();															// [G5] No.10026 적록색약
+	int		solution_260106_01();															// [G5] No.1245 농장 관리
 };
