@@ -82,4 +82,5 @@ public:
 	int		solution_260101_01();															// [G4] No.2179 비슷한 단어
 	int		solution_260105_01();															// [G5] No.10026 적록색약
 	int		solution_260106_01();															// [G5] No.1245 농장 관리
+	int		solution_260107_01();															// [G5] No.20055 컨베이어 벨트 위의 로봇
 };

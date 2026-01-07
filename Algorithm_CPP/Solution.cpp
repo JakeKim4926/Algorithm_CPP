@@ -3040,3 +3040,55 @@ int Solution::solution_260106_01() {
 
 	return 0;
 }
+
+int Solution::solution_260107_01() {
+	int N = 0, K = 0;
+	cin >> N >> K;
+
+	deque<pair<int, int>> conveyor(N * 2);
+	for (int i = 0; i < N * 2; i++) {
+		cin >> conveyor[i].first;
+	}
+
+	int zeroCount = 0;
+	int step = 0;
+	while (zeroCount < K) {
+		auto last = conveyor.back();
+		conveyor.push_front(last);
+		conveyor.pop_back();
+
+		if (conveyor[N - 1].second)
+			conveyor[N - 1].second = 0;
+
+
+		for (int i = N - 2; i >= 0; i--) {
+			if (conveyor[i].second
+				&& !conveyor[i + 1].second
+				&& conveyor[i + 1].first > 0) {
+				conveyor[i].second = 0;
+				conveyor[i + 1].second = 1;
+				conveyor[i + 1].first--;
+
+				if (conveyor[i + 1].first == 0)
+					zeroCount++;
+			}
+		}
+
+		if (conveyor[N - 1].second)
+			conveyor[N - 1].second = 0;
+
+		if (conveyor.front().first != 0) {
+			conveyor.front().first--;
+			if (!conveyor.front().first)
+				zeroCount++;
+
+			conveyor.front().second = 1;
+		}
+
+		step++;
+	}
+
+	cout << step << "\n";
+
+	return 0;
+}
