@@ -3092,3 +3092,18 @@ int Solution::solution_260107_01() {
 
 	return 0;
 }
+
+int Solution::solution_260109_01() {
+	int N = 0, result = 1;
+	cin >> N;
+	vector<int> dp(N + 1);
+	for (int i = 2; i < dp.size(); i++) {
+		dp[i] = dp[i - 1] + 1;
+		if (i % 2 == 0)  dp[i] = min(dp[i], dp[i / 2] + 1);
+		if (i % 3 == 0)  dp[i] = min(dp[i], dp[i / 3] + 1);
+	}
+
+	cout << dp[N] << "\n";
+
+	return 0;
+}
