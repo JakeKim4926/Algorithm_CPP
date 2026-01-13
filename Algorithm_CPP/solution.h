@@ -84,4 +84,5 @@ public:
 	int		solution_260106_01();															// [G5] No.1245 농장 관리
 	int		solution_260107_01();															// [G5] No.20055 컨베이어 벨트 위의 로봇
 	int		solution_260109_01();															// [S3] No.1463 1로 만들기
+	int		solution_260113_01();															// [S3] No.9095 1,2,3 더하기
 };
