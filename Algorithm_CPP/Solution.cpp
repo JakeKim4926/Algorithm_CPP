@@ -3107,3 +3107,56 @@ int Solution::solution_260109_01() {
 
 	return 0;
 }
+
+int Solution::solution_260113_01() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cout.tie(nullptr);
+
+	int N = 0, T = 0;
+	int dp[11] = { 0, };
+	dp[1] = 1;
+	dp[2] = 2;
+	dp[3] = 4;
+
+	for (int i = 4; i <= 10; i++)
+		dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+
+	cin >> T;
+	for (int i = 0; i < T; i++) {
+		cin >> N;
+		cout << dp[N] << "\n";
+	}
+
+	return 0;
+}
+
+int Solution::solution_260114_01() {
+	int N = 0;
+	cin >> N;
+	vector<vector<int>> rgb(N, vector<int>(3));
+	vector<vector<int>> dp(N, vector<int>(3, INT_MAX));
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < 3; j++)
+			cin >> rgb[i][j];
+	}
+
+	dp[0][0] = rgb[0][0];
+	dp[0][1] = rgb[0][1];
+	dp[0][2] = rgb[0][2];
+
+	for (int i = 1; i < N; i++) {
+		dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + rgb[i][0];
+		dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + rgb[i][1];
+		dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + rgb[i][2];
+	}
+
+	int result = INT_MAX;
+	for (int i = 0; i < 3; i++)
+		result = min(result, dp[N - 1][i]);
+
+	cout << result << "\n";
+
+	return 0;
+}
