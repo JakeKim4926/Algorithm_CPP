@@ -86,4 +86,5 @@ public:
 	int		solution_260109_01();															// [S3] No.1463 1로 만들기
 	int		solution_260113_01();															// [S3] No.9095 1,2,3 더하기
 	int		solution_260114_01();															// [S1] No.1149 RGB거리
+	int		solution_260115_01();															// [S1] No.11052 카드 구매하기
 };

@@ -3160,3 +3160,22 @@ int Solution::solution_260114_01() {
 
 	return 0;
 }
+
+int Solution::solution_260115_01() {
+	int N = 0;
+	cin >> N;
+
+	vector<int> card(N + 1);
+	for (int i = 1; i <= N; i++)
+		cin >> card[i];
+
+	vector<int> dp(N + 1);
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= i; j++)
+			dp[i] = max(dp[i], dp[i - j] + card[j]);
+	}
+
+	cout << dp[N] << "\n";
+
+	return 0;
+}
