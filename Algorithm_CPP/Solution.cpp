@@ -3179,3 +3179,23 @@ int Solution::solution_260115_01() {
 
 	return 0;
 }
+
+int Solution::solution_260121_01() {
+	int N = 0;
+	cin >> N;
+	vector<int> seq(N);
+	vector<int> dp(N);
+	for (int i = 0; i < N; i++)
+		cin >> seq[i];
+
+	dp[0] = seq[0];
+	int result = dp[0];
+	for (int i = 1; i < N; i++) {
+		dp[i] = max(dp[i - 1] + seq[i], seq[i]);
+		result = max(result, dp[i]);
+	}
+
+	cout << result << "\n";
+
+	return 0;
+}

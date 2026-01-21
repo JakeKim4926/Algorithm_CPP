@@ -87,4 +87,5 @@ public:
 	int		solution_260113_01();															// [S3] No.9095 1,2,3 더하기
 	int		solution_260114_01();															// [S1] No.1149 RGB거리
 	int		solution_260115_01();															// [S1] No.11052 카드 구매하기
+	int		solution_260121_01();															// [S2] No.1912 연속합
 };
