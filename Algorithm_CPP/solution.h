@@ -88,4 +88,5 @@ public:
 	int		solution_260114_01();															// [S1] No.1149 RGB거리
 	int		solution_260115_01();															// [S1] No.11052 카드 구매하기
 	int		solution_260121_01();															// [S2] No.1912 연속합
+	int		solution_260122_01();															// [S1] No.2156 포도주 시식
 };

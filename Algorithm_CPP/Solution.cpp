@@ -3199,3 +3199,40 @@ int Solution::solution_260121_01() {
 
 	return 0;
 }
+
+int Solution::solution_260122_01() {
+	int N = 0;
+	cin >> N;
+	vector<int> wine(N);
+	vector<int> dp(N);
+
+	for (int i = 0; i < N; i++)
+		cin >> wine[i];
+
+	if (N == 1) {
+		cout << wine[0];
+		return 0;
+	}
+
+	dp[0] = wine[0];
+	dp[1] = wine[0] + wine[1];
+
+	if (N == 2) {
+		cout << dp[1];
+		return 0;
+	}
+
+	dp[2] = max({ dp[1], wine[0] + wine[2], wine[1] + wine[2] });
+
+	for (int i = 3; i < N; i++) {
+		dp[i] = max({
+			dp[i - 1],
+			dp[i - 2] + wine[i],
+			dp[i - 3] + wine[i - 1] + wine[i]
+			});
+	}
+
+	cout << dp[N - 1];
+
+	return 0;
+}
