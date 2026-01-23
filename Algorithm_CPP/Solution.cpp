@@ -3236,3 +3236,34 @@ int Solution::solution_260122_01() {
 
 	return 0;
 }
+
+int Solution::solution_260123_01() {
+	int N;
+	cin >> N;
+	ll count = 0;
+
+	vector<ll> dp(10, 0);
+	vector<ll> next(10, 0);
+
+	for (int i = 1; i <= 9; i++)
+		dp[i] = 1;
+
+	for (int len = 2; len <= N; len++) {
+		fill(next.begin(), next.end(), 0);
+
+		next[0] = dp[1] % 1000000000LL;
+		next[9] = dp[8] % 1000000000LL;
+
+		for (int i = 1; i <= 8; i++)
+			next[i] = (dp[i - 1] + dp[i + 1]) % 1000000000LL;
+
+		dp = next;
+	}
+
+	for (int i = 0; i <= 9; i++)
+		count = (count + dp[i]) % 1000000000LL;
+
+	cout << count;
+
+	return 0;
+}
