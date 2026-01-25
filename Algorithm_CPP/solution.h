@@ -92,4 +92,5 @@ public:
 	int		solution_260121_01();															// [S2] No.1912 연속합
 	int		solution_260122_01();															// [S1] No.2156 포도주 시식
 	int		solution_260123_01();															// [S1] No.10844 쉬운 계단 수
+	int		solution_260125_01();															// [S1] No.11057 오르막 수
 };

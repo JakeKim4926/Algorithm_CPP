@@ -3267,3 +3267,31 @@ int Solution::solution_260123_01() {
 
 	return 0;
 }
+
+int Solution::solution_260125_01() {
+	int N;
+	cin >> N;
+
+	int ANSWER_MOD = 10007;
+
+	vector<vector<int>> dp(N + 1, vector<int>(10));
+
+	for (int i = 0; i < 10; i++)
+		dp[1][i] = 1;
+
+	for (int i = 2; i <= N; i++) {
+		dp[i][0] = 1;
+		for (int j = 1; j < 10; j++) {
+			dp[i][j] = (dp[i][j - 1] + dp[i - 1][j]) % ANSWER_MOD;
+		}
+	}
+
+	int result = 0;
+	for (int d = 0; d <= 9; d++)
+		result += dp[N][d] % ANSWER_MOD;
+
+	cout << result % ANSWER_MOD << "\n";
+
+
+	return 0;
+}
