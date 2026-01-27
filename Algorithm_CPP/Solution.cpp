@@ -3321,3 +3321,19 @@ int Solution::solution_260126_01() {
 
 	return 0;
 }
+
+int Solution::solution_260127_01() {
+	int N = 0, result = 1;
+	cin >> N;
+	vector<ll> crazyBin(N);
+	crazyBin[0] = 1;
+	if (N > 1)
+		crazyBin[1] = 1;
+
+	for (int i = 2; i < N; i++)
+		crazyBin[i] = crazyBin[i - 1] + crazyBin[i - 2];
+
+	cout << crazyBin.back();
+
+	return 0;
+}

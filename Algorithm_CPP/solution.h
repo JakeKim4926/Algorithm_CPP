@@ -94,4 +94,5 @@ public:
 	int		solution_260123_01();															// [S1] No.10844 쉬운 계단 수
 	int		solution_260125_01();															// [S1] No.11057 오르막 수
 	int		solution_260126_01();															// [S1] No.11660 구간 합 구하기 5
+	int		solution_260127_01();															// [S3] No.2193 이친수
 };
